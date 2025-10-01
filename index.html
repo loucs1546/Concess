@@ -1,0 +1,3161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONCESSIONNAIRE | IMPACT LIFE VEHICLES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --neon-red: #ff0040;
+            --neon-red-glow: 0 0 15px #ff0000, 0 0 30px #ff0040, 0 0 45px #ffffff;
+            --dark-bg: #000000;
+            --darker-bg: #000000;
+            --card-bg: rgba(10, 10, 10, 0.9);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-glow: rgba(255, 0, 64, 0.4);
+            --scanline: rgba(255, 0, 64, 0.1);
+            --gradient-red: linear-gradient(45deg, #ff0040, #ff3366, #ff0040);
+        }
+        body {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.4;
+        }
+        /* Matrix Rain Effect */
+        canvas#matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.1;
+        }
+        /* CRT Monitor Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                var(--scanline) 2px,
+                var(--scanline) 4px
+            );
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0.25;
+            animation: scan 6s linear infinite;
+        }
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100vh; }
+        }
+        /* Glitch Effect Styles */
+        .glitch {
+            position: relative;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-red);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(1px, 9999px, 72px, 0); }
+            90% { clip: rect(74px, 9999px, 34px, 0); }
+            95% { clip: rect(72px, 9999px, 59px, 0); }
+            100% { clip: rect(42px, 9999px, 44px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(56px, 9999px, 59px, 0); }
+            95% { clip: rect(45px, 9999px, 47px, 0); }
+            100% { clip: rect(65px, 9999px, 100px, 0); }
+        }
+        /* Glitch Hover Effect */
+        .glitch-hover {
+            position: relative;
+            transition: all 0.3s ease;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .glitch-hover:hover {
+            animation: glitch-hover 0.5s ease-in-out;
+        }
+        @keyframes glitch-hover {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-3px); }
+            40% { transform: translateX(3px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+        }
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 2px solid var(--neon-red);
+            padding: 1rem 2rem;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--neon-red);
+            text-shadow: var(--neon-red-glow);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .nav-link:hover {
+            color: var(--neon-red);
+            text-shadow: var(--neon-red-glow);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 80px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 64, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 64, 0.05) 0%, transparent 40%);
+        }
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 5.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.8rem;
+            color: var(--neon-red);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--neon-red-glow);
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .cta-button {
+            background: transparent;
+            color: var(--neon-red);
+            border: 3px solid var(--neon-red);
+            padding: 18px 45px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .cta-button:hover {
+            background: var(--neon-red);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        /* Categories Section - Hexagonal Grid Layout */
+        .categories-section {
+            padding: 5rem 2rem 4rem;
+            position: relative;
+            background: var(--darker-bg);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: var(--neon-red);
+            box-shadow: 0 0 20px var(--neon-red);
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .category-card.active {
+            border: 3px solid var(--neon-red);
+            box-shadow: 0 0 40px var(--accent-glow), 0 15px 45px rgba(0, 0, 0, 0.6);
+            transform: scale(1.1);
+        }
+        .category-card:hover {
+            transform: translateY(-12px) scale(1.08);
+            border: 3px solid var(--neon-red);
+            box-shadow: 0 20px 50px var(--accent-glow), 0 15px 45px rgba(0, 0, 0, 0.6);
+        }
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-red);
+            transition: all 0.4s ease;
+            text-shadow: 0 0 20px rgba(255, 0, 64, 0.6);
+        }
+        .category-card:hover .category-icon {
+            transform: scale(1.4) rotate(20deg);
+            text-shadow: 0 0 35px rgba(255, 0, 64, 0.9);
+        }
+        .category-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: var(--neon-red-glow);
+            font-weight: 700;
+        }
+        .category-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            font-family: 'Share Tech Mono', monospace;
+            min-height: 60px;
+        }
+        .category-count {
+            display: inline-block;
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px var(--accent-glow);
+            border: 2px solid var(--neon-red);
+        }
+        /* Vehicles Showcase */
+        .vehicles-showcase {
+            padding: 4rem 2rem 5rem;
+            background: var(--darker-bg);
+            position: relative;
+            border-top: 2px solid rgba(255, 0, 64, 0.3);
+            border-bottom: 2px solid rgba(255, 0, 64, 0.3);
+        }
+        .vehicles-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .current-category {
+            font-size: 1.8rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .add-vehicle-btn {
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px var(--accent-glow);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .add-vehicle-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        .add-vehicle-btn:hover::before {
+            left: 100%;
+        }
+        .add-vehicle-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .vehicles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .vehicle-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        .vehicle-card:hover {
+            transform: translateY(-12px);
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 25px 60px var(--accent-glow), 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+        .vehicle-image-container {
+            height: 240px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--neon-red);
+        }
+        .vehicle-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .vehicle-card:hover .vehicle-image {
+            transform: scale(1.15);
+        }
+        .vehicle-info {
+            padding: 2rem;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .vehicle-name {
+            font-size: 1.7rem;
+            margin-bottom: 1.1rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: var(--neon-red-glow);
+            font-weight: 700;
+        }
+        .vehicle-price {
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin-bottom: 1.3rem;
+            background: linear-gradient(45deg, #ffffff, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .vehicle-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.6rem;
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .spec-item {
+            text-align: center;
+            flex: 1;
+        }
+        .spec-value {
+            display: block;
+            font-weight: 800;
+            color: var(--neon-red);
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+        }
+        .vehicle-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-buy {
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .btn-details {
+            background: transparent;
+            color: var(--neon-red);
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 20px rgba(255, 0, 64, 0.4);
+        }
+        .action-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+        /* Add Vehicle Modal - Compact */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            animation: modal-fade-in 0.4s ease;
+        }
+        @keyframes modal-fade-in {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border: 3px solid var(--neon-red);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 550px;
+            margin: 2rem auto;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 0 50px var(--accent-glow);
+            font-family: 'Share Tech Mono', monospace;
+            backdrop-filter: blur(12px);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--neon-red);
+        }
+        .modal-title {
+            font-size: 1.9rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .close-modal {
+            background: linear-gradient(45deg, var(--neon-red), #ff3366);
+            border: 2px solid var(--neon-red);
+            color: var(--dark-bg);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 50%;
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+        .close-modal:hover {
+            transform: rotate(180deg) scale(1.15);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--neon-red);
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.92);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: 'Share Tech Mono', monospace;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            box-shadow: 0 0 20px var(--accent-glow);
+            border-color: #ff3366;
+        }
+        .form-input::placeholder {
+            color: #777;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        .submit-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        /* Vehicle Details Modal - Compact */
+        .details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+        }
+        .details-content {
+            background: var(--card-bg);
+            border: 3px solid var(--neon-red);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 650px;
+            margin: 2rem auto;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 0 50px var(--accent-glow);
+            font-family: 'Share Tech Mono', monospace;
+            backdrop-filter: blur(12px);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--neon-red);
+        }
+        .details-title {
+            font-size: 2.1rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .details-image-container {
+            height: 280px;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--neon-red);
+            position: relative;
+        }
+        .details-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .details-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        .detail-item {
+            text-align: center;
+            padding: 1.2rem;
+            border: 1px solid var(--neon-red);
+            background: rgba(25, 25, 25, 0.8);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .detail-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px var(--accent-glow);
+            border-color: #ff3366;
+        }
+        .detail-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1px;
+        }
+        .detail-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 1px;
+        }
+        .details-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* Panier */
+        .cart-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-bg);
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: all 0.3s ease;
+            border: 3px solid var(--neon-red);
+        }
+        .cart-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--neon-red);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 4000;
+            backdrop-filter: blur(8px);
+            animation: modal-fade-in 0.4s ease;
+        }
+        .cart-content {
+            background: var(--card-bg);
+            border: 3px solid var(--neon-red);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px; /* Légèrement plus large */
+            margin: 5rem auto;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 0 50px var(--accent-glow);
+            font-family: 'Share Tech Mono', monospace;
+            backdrop-filter: blur(12px);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--neon-red);
+        }
+        .cart-title {
+            font-size: 1.9rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .cart-items {
+            margin-bottom: 2rem;
+            max-height: 40vh; /* Limite la hauteur de la liste */
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 0, 64, 0.2); /* Bordure plus subtile */
+            margin-bottom: 1rem;
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 8px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .cart-item-info {
+            flex: 1;
+        }
+        .cart-item-name {
+            font-size: 1.2rem;
+            color: var(--neon-red);
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        .cart-item-price {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+        .cart-item-quantity {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 0.3rem;
+        }
+        .cart-item-remove {
+            background: transparent;
+            color: #ff3366;
+            border: 2px solid #ff3366;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        .cart-item-remove:hover {
+            background: #ff3366;
+            color: var(--dark-bg);
+            transform: scale(1.05);
+        }
+        .cart-total {
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 1.5rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            padding-top: 1rem;
+            border-top: 2px solid var(--neon-red);
+        }
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end; /* Boutons alignés à droite */
+        }
+        .cart-btn {
+            padding: 14px 24px; /* Boutons plus petits */
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            min-width: 150px; /* Largeur minimale pour alignement */
+        }
+        .btn-clear {
+            background: transparent;
+            color: var(--neon-red);
+        }
+        .btn-clear:hover {
+            background: var(--neon-red);
+            color: var(--dark-bg);
+        }
+        .cart-empty-message {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            padding: 2rem 0;
+            font-style: italic;
+        }
+
+        /* Modal de Connexion Admin */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 5000;
+            backdrop-filter: blur(8px);
+            animation: modal-fade-in 0.4s ease;
+        }
+        .login-content {
+            background: var(--card-bg);
+            border: 3px solid var(--neon-red);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            margin: 10rem auto;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 0 50px var(--accent-glow);
+            font-family: 'Share Tech Mono', monospace;
+            backdrop-filter: blur(12px);
+        }
+        .login-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--neon-red);
+        }
+        .login-title {
+            font-size: 1.9rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .login-form-group {
+            margin-bottom: 1.4rem;
+        }
+        .login-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .login-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.92);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: 'Share Tech Mono', monospace;
+            transition: all 0.3s ease;
+        }
+        .login-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px var(--accent-glow);
+            border-color: #ff3366;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+        .login-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        /* Page de Service */
+        .service-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 6000;
+            backdrop-filter: blur(8px);
+            animation: modal-fade-in 0.4s ease;
+        }
+        .service-content {
+            background: var(--card-bg);
+            border: 3px solid var(--neon-red);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            margin: 5rem auto;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 0 50px var(--accent-glow);
+            font-family: 'Share Tech Mono', monospace;
+            backdrop-filter: blur(12px);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--neon-red);
+        }
+        .service-title {
+            font-size: 1.9rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .service-controls {
+            margin-bottom: 2rem;
+        }
+        .service-btn {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 1rem;
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+        .service-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .timer-display {
+            font-size: 1.8rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 2px;
+        }
+        .sale-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--neon-red);
+        }
+        .sale-title {
+            font-size: 1.6rem;
+            color: var(--neon-red);
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .sale-search {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.92);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: 'Share Tech Mono', monospace;
+            margin-bottom: 1rem;
+        }
+        .sale-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.92);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: 'Share Tech Mono', monospace;
+            margin-bottom: 1rem;
+        }
+        .sale-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+        .sale-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 2.5rem 2rem 2rem;
+            border-top: 2px solid var(--neon-red);
+            position: relative;
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 0 2rem;
+        }
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-red);
+            position: relative;
+            padding-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 45px;
+            height: 2px;
+            background: var(--neon-red);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+        .footer-links a:hover {
+            color: var(--neon-red);
+            transform: translateX(8px);
+            text-shadow: var(--neon-red-glow);
+        }
+        .footer-links a i {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .social-links {
+            display: flex;
+            gap: 18px;
+            margin-top: 1.8rem;
+        }
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-red);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid var(--neon-red);
+            border-radius: 50%;
+            font-size: 1.1rem;
+            background: transparent;
+        }
+        .social-link:hover {
+            background: var(--neon-red);
+            color: var(--dark-bg);
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 0, 64, 0.3);
+            margin-top: 2rem;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                padding: 2.5rem;
+                gap: 2rem;
+                backdrop-filter: blur(5px);
+                border-top: 2px solid var(--neon-red);
+            }
+            .nav-menu.show {
+                display: flex;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero-stats {
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.8rem;
+                padding: 0 1.5rem;
+            }
+            .category-card {
+                padding: 2rem 1.2rem;
+            }
+            .category-icon {
+                font-size: 2.5rem;
+            }
+            .category-title {
+                font-size: 1.2rem;
+            }
+            .vehicles-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1.5rem;
+                gap: 2rem;
+            }
+            .details-info {
+                grid-template-columns: 1fr;
+            }
+            .details-image-container {
+                height: 280px;
+            }
+            /* Responsive Panier */
+            .cart-content {
+                width: 95%;
+                margin: 2rem auto;
+                padding: 1.8rem;
+            }
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .cart-item-remove {
+                align-self: flex-end;
+            }
+            .cart-actions {
+                flex-direction: column;
+            }
+            .cart-btn {
+                width: 100%;
+            }
+            .login-content {
+                width: 95%;
+                margin: 8rem auto;
+            }
+            .service-content {
+                width: 95%;
+                margin: 3rem auto;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .current-category {
+                font-size: 1.5rem;
+            }
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            .category-card {
+                padding: 1.8rem 1rem;
+            }
+            .category-icon {
+                font-size: 2.2rem;
+            }
+            .category-title {
+                font-size: 1.1rem;
+            }
+            .modal-content,
+            .details-content {
+                width: 95%;
+                margin: 1rem auto;
+                padding: 1.8rem;
+            }
+            .details-image-container {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- Bouton Panier -->
+    <button class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+
+    <!-- Modal Panier -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3 class="cart-title glitch" data-text="PANIER">PANIER</h3>
+                <button class="close-modal" id="closeCartModal">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Les articles du panier seront ajoutés ici dynamiquement -->
+                <div class="cart-empty-message" id="cartEmptyMessage">Votre panier est vide.</div>
+            </div>
+            <div class="cart-total" id="cartTotal">Total: €0</div>
+            <div class="cart-actions">
+                <button class="cart-btn btn-clear glitch-hover" id="clearCartBtn">TOUT SUPPRIMER</button>
+                <!-- Bouton "PASSER LA COMMANDE" supprimé -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Connexion Admin -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <div class="login-header">
+                <h3 class="login-title glitch" data-text="CONNEXION ADMIN">CONNEXION ADMIN</h3>
+                <button class="close-modal" id="closeLoginModal">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="login-form-group">
+                    <label class="login-label glitch" data-text="NOM D'UTILISATEUR">NOM D'UTILISATEUR</label>
+                    <input type="text" id="adminUsername" class="login-input" placeholder="Entrez votre nom d'utilisateur" required>
+                </div>
+                <div class="login-form-group">
+                    <label class="login-label glitch" data-text="MOT DE PASSE">MOT DE PASSE</label>
+                    <input type="password" id="adminPassword" class="login-input" placeholder="Entrez votre mot de passe" required>
+                </div>
+                <button type="submit" class="login-btn glitch-hover">SE CONNECTER</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Page de Service -->
+    <div class="service-page" id="servicePage">
+        <div class="service-content">
+            <div class="service-header">
+                <h3 class="service-title glitch" data-text="PANEL DE SERVICE">PANEL DE SERVICE</h3>
+                <button class="close-modal" id="closeServiceModal">&times;</button>
+            </div>
+            <div class="service-controls">
+                <button class="service-btn glitch-hover" id="startServiceBtn">PRENDRE SON SERVICE</button>
+                <button class="service-btn glitch-hover" id="pauseServiceBtn" style="display:none;">PAUSE</button>
+                <button class="service-btn glitch-hover" id="resumeServiceBtn" style="display:none;">REPRENDRE</button>
+                <button class="service-btn glitch-hover" id="stopServiceBtn" style="display: none;">ARRÊTER SON SERVICE</button>
+                <button class="service-btn glitch-hover" id="noWorkBtn">Absent pour aujourd'hui</button>
+                <div class="timer-display" id="serviceTimer">00:00:00</div>
+            </div>
+            <div class="sale-section">
+                <h4 class="sale-title glitch" data-text="ENREGISTRER UNE VENTE">ENREGISTRER UNE VENTE</h4>
+                <input type="text" id="vehicleSearch" class="sale-search" placeholder="Véhicule vendu">
+                <input type="text" id="clientName" class="sale-input" placeholder="Nom du client...">
+                <button class="sale-btn glitch-hover" id="recordSaleBtn">ENREGISTRER LA VENTE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="logo-text glitch" data-text="Concessionnaire">Concessionnaire</div>
+            </div>
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link glitch-hover">ACCUEIL</a></li>
+                    <li><a href="#categories" class="nav-link glitch-hover">CATÉGORIES</a></li>
+                    <li><a href="#vehicles" class="nav-link glitch-hover">VÉHICULES</a></li>
+                    <li><a href="#" class="nav-link glitch-hover" id="serviceLink" style="display: none;">SERVICE</a></li> <!-- Nouveau lien -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="Impact Life VEHICLES">Impact Life VEHICLES</h1>
+            <p class="hero-subtitle">Système de véhicules premium pour serveurs GTA Roleplay. Interface glitchée, performance optimale, expérience immersive garantie.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number glitch" data-text="250+">250+</div>
+                    <div class="stat-label">VÉHICULES</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number glitch" data-text="8">8</div>
+                    <div class="stat-label">CATÉGORIES</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number glitch" data-text="24/7">24/7</div>
+                    <div class="stat-label">SUPPORT</div>
+                </div>
+            </div>
+            <button class="cta-button glitch-hover">ACCÉDER AU PANIER</button>
+        </div>
+    </section>
+    <!-- Categories Section - Hexagonal Grid Layout -->
+    <section class="categories-section" id="categories">
+        <div class="section-header">
+            <h2 class="section-title glitch neon-text" data-text="CATÉGORIES">CATÉGORIES</h2>
+        </div>
+        <div class="categories-grid">
+            <div class="category-card glitch-hover active" data-category="all">
+                <div class="category-icon">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <h3 class="category-title">TOUTES</h3>
+                <p class="category-description">Afficher tous les véhicules disponibles dans notre collection premium.</p>
+                <div class="category-count">34 VÉHICULES</div> <!-- Mise à jour du total -->
+            </div>
+            <div class="category-card glitch-hover" data-category="berline">
+                <div class="category-icon">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <h3 class="category-title">BERLINE</h3>
+                <p class="category-description">Élégance, confort et prestige pour vos déplacements urbains et missions RP.</p>
+                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+            </div>
+            <div class="category-card glitch-hover" data-category="compact">
+                <div class="category-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3 class="category-title">COMPACT</h3>
+                <p class="category-description">Agilité, économie et maniabilité parfaite pour la ville et zones étroites.</p>
+                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+            </div>
+            <div class="category-card glitch-hover" data-category="suv">
+                <div class="category-icon">
+                    <i class="fas fa-truck-moving"></i>
+                </div>
+                <h3 class="category-title">SUV</h3>
+                <p class="category-description">Espace, polyvalence et robustesse pour toute la famille et toutes les missions.</p>
+                <div class="category-count">17 VÉHICULES</div> <!-- Mise à jour -->
+            </div>
+            <div class="category-card glitch-hover" data-category="sportive">
+                <div class="category-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3 class="category-title">SPORTIVE</h3>
+                <p class="category-description">Performance, adrénaline et style pour amateurs de vitesse et sensations fortes.</p>
+                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+            </div>
+            <div class="category-card glitch-hover" data-category="deux-roue">
+                <div class="category-icon">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <h3 class="category-title">DEUX ROUES</h3>
+                <p class="category-description">Liberté, agilité et maniabilité absolue pour traverser la ville à toute vitesse.</p>
+                <div class="category-count">9 VÉHICULES</div> <!-- Mise à jour -->
+            </div>
+            <div class="category-card glitch-hover" data-category="hypercar">
+                <div class="category-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="category-title">HYPERCAR</h3>
+                <p class="category-description">Technologie de pointe, vitesse extrême et exclusivité pour joueurs VIP.</p>
+                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+            </div>
+            <div class="category-card glitch-hover" data-category="tout-terrain">
+                <div class="category-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3 class="category-title">TOUT-TERRAIN</h3>
+                <p class="category-description">Aventure, robustesse et capacité tout-terrain pour explorer chaque recoin.</p>
+                <div class="category-count">5 VÉHICULES</div> <!-- Mise à jour -->
+            </div>
+        </div>
+    </section>
+    <!-- Vehicles Showcase -->
+    <section class="vehicles-showcase" id="vehicles">
+        <div class="vehicles-header">
+            <h2 class="current-category glitch" data-text="TOUTES LES CATÉGORIES">TOUTES LES CATÉGORIES</h2>
+            <button class="add-vehicle-btn glitch-hover" id="openAddModal">AJOUTER UN VÉHICULE</button>
+        </div>
+        <div class="vehicles-grid" id="vehiclesGrid">
+            <!-- Véhicules Deux-Roues -->
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Yamaha Aerox 155" data-price="9000" data-vmax="120" data-accel="6.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+Aerox+155">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+Aerox+155" alt="Yamaha Aerox 155" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="YAMAHA AEROX 155">YAMAHA AEROX 155</h3>
+                    <div class="vehicle-price">€9,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">120</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">6.0S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Harley Davidson Low Rider" data-price="24000" data-vmax="180" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Harley+Davidson+Low+Rider">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Harley+Davidson+Low+Rider" alt="Harley Davidson Low Rider" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="HARLEY DAVIDSON LOW RIDER">HARLEY DAVIDSON LOW RIDER</h3>
+                    <div class="vehicle-price">€24,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">180</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="MV Agusta Brutale 2019" data-price="48000" data-vmax="250" data-accel="3.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=MV+Agusta+Brutale+2019">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=MV+Agusta+Brutale+2019" alt="MV Agusta Brutale 2019" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MV AGUSTA BRUTALE 2019">MV AGUSTA BRUTALE 2019</h3>
+                    <div class="vehicle-price">€48,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">250</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.0S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="LP Chopper" data-price="36000" data-vmax="190" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=LP+Chopper">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=LP+Chopper" alt="LP Chopper" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="LP CHOPPER">LP CHOPPER</h3>
+                    <div class="vehicle-price">€36,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">190</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.8S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Kawasaki ZX6R" data-price="15600" data-vmax="240" data-accel="3.2" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+ZX6R">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+ZX6R" alt="Kawasaki ZX6R" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="KAWASAKI ZX6R">KAWASAKI ZX6R</h3>
+                    <div class="vehicle-price">€15,600</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">240</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.2S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Kawasaki Z8R" data-price="14400" data-vmax="230" data-accel="3.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Z8R">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Z8R" alt="Kawasaki Z8R" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="KAWASAKI Z8R">KAWASAKI Z8R</h3>
+                    <div class="vehicle-price">€14,400</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">230</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Kawasaki Ninja H2" data-price="48000" data-vmax="320" data-accel="2.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Ninja+H2">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Ninja+H2" alt="Kawasaki Ninja H2" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="KAWASAKI NINJA H2">KAWASAKI NINJA H2</h3>
+                    <div class="vehicle-price">€48,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">320</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">2.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="BMW S1000RR" data-price="27000" data-vmax="290" data-accel="2.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+S1000RR">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+S1000RR" alt="BMW S1000RR" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="BMW S1000RR">BMW S1000RR</h3>
+                    <div class="vehicle-price">€27,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">290</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">2.8S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Yamaha YZF-R6" data-price="36000" data-vmax="260" data-accel="3.2" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+YZF-R6">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+YZF-R6" alt="Yamaha YZF-R6" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="YAMAHA YZF-R6">YAMAHA YZF-R6</h3>
+                    <div class="vehicle-price">€36,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">260</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.2S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Véhicules SUV -->
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes GL 63 2019" data-price="96000" data-vmax="250" data-accel="4.2" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GL+63+2019">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GL+63+2019" alt="Mercedes GL 63 2019" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MERCEDES GL 63 2019">MERCEDES GL 63 2019</h3>
+                    <div class="vehicle-price">€96,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">250</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.2S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes C32" data-price="30000" data-vmax="220" data-accel="5.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+C32">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+C32" alt="Mercedes C32" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MERCEDES C32">MERCEDES C32</h3>
+                    <div class="vehicle-price">€30,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">220</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">5.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="BMW X7" data-price="150000" data-vmax="250" data-accel="4.7" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+X7">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+X7" alt="BMW X7" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="BMW X7">BMW X7</h3>
+                    <div class="vehicle-price">€150,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">250</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.7S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes GLE 63 2023" data-price="144000" data-vmax="250" data-accel="4.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GLE+63+2023">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GLE+63+2023" alt="Mercedes GLE 63 2023" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MERCEDES GLE 63 2023">MERCEDES GLE 63 2023</h3>
+                    <div class="vehicle-price">€144,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">250</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.0S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Maserati Levante Novitec" data-price="180000" data-vmax="290" data-accel="3.6" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Maserati+Levante+Novitec">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Maserati+Levante+Novitec" alt="Maserati Levante Novitec" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MASERATI LEVANTE NOVITEC">MASERATI LEVANTE NOVITEC</h3>
+                    <div class="vehicle-price">€180,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">290</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.6S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Rolls Royce Cullinan" data-price="125000" data-vmax="250" data-accel="4.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Rolls+Royce+Cullinan">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Rolls+Royce+Cullinan" alt="Rolls Royce Cullinan" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="ROLLS ROYCE CULLINAN">ROLLS ROYCE CULLINAN</h3>
+                    <div class="vehicle-price">€125,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">250</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.8S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Volvo XC90" data-price="144000" data-vmax="230" data-accel="5.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Volvo+XC90">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Volvo+XC90" alt="Volvo XC90" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="VOLVO XC90">VOLVO XC90</h3>
+                    <div class="vehicle-price">€144,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">230</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">5.0S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Top Car Inferno" data-price="102000" data-vmax="260" data-accel="3.9" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Top+Car+Inferno">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Top+Car+Inferno" alt="Top Car Inferno" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="TOP CAR INFERNO">TOP CAR INFERNO</h3>
+                    <div class="vehicle-price">€102,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">260</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.9S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Land Rover Velar" data-price="102000" data-vmax="250" data-accel="5.3" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Land+Rover+Velar">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Land+Rover+Velar" alt="Land Rover Velar" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="LAND ROVER VELAR">LAND ROVER VELAR</h3>
+                    <div class="vehicle-price">€102,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">250</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">5.3S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Alpina XB7 2020" data-price="174000" data-vmax="290" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Alpina+XB7+2020">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Alpina+XB7+2020" alt="Alpina XB7 2020" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="ALPINA XB7 2020">ALPINA XB7 2020</h3>
+                    <div class="vehicle-price">€174,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">290</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.8S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Audi RSQ8 2021" data-price="156000" data-vmax="300" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Audi+RSQ8+2021">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Audi+RSQ8+2021" alt="Audi RSQ8 2021" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="AUDI RSQ8 2021">AUDI RSQ8 2021</h3>
+                    <div class="vehicle-price">€156,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">300</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.8S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Lamborghini Urus 2018" data-price="360000" data-vmax="310" data-accel="3.6" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Lamborghini+Urus+2018">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Lamborghini+Urus+2018" alt="Lamborghini Urus 2018" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="LAMBORGHINI URUS 2018">LAMBORGHINI URUS 2018</h3>
+                    <div class="vehicle-price">€360,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">310</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.6S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Range Rover Vogue Autobiography" data-price="146400" data-vmax="240" data-accel="5.1" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Range+Rover+Vogue+Autobiography">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Range+Rover+Vogue+Autobiography" alt="Range Rover Vogue Autobiography" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="RANGE ROVER VOGUE AUTOBIOGRAPHY">RANGE ROVER VOGUE AUTOBIOGRAPHY</h3>
+                    <div class="vehicle-price">€146,400</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">240</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">5.1S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Bentley Bentayga" data-price="288000" data-vmax="300" data-accel="4.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Bentley+Bentayga">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Bentley+Bentayga" alt="Bentley Bentayga" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="BENTLEY BENTAYGA">BENTLEY BENTAYGA</h3>
+                    <div class="vehicle-price">€288,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">300</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.0S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Jaguar F-Pace Prior" data-price="180000" data-vmax="280" data-accel="4.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Jaguar+F-Pace+Prior">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Jaguar+F-Pace+Prior" alt="Jaguar F-Pace Prior" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="JAGUAR F-PACE PRIOR">JAGUAR F-PACE PRIOR</h3>
+                    <div class="vehicle-price">€180,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">280</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.0S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes G63 S" data-price="336000" data-vmax="240" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+G63+S">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+G63+S" alt="Mercedes G63 S" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MERCEDES G63 S">MERCEDES G63 S</h3>
+                    <div class="vehicle-price">€336,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">240</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">3.8S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes Classe G600P" data-price="204000" data-vmax="220" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+Classe+G600P">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+Classe+G600P" alt="Mercedes Classe G600P" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MERCEDES CLASSE G600P">MERCEDES CLASSE G600P</h3>
+                    <div class="vehicle-price">€204,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">220</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes ML63 Brabus" data-price="24000" data-vmax="280" data-accel="4.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+ML63+Brabus">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+ML63+Brabus" alt="Mercedes ML63 Brabus" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MERCEDES ML63 BRABUS">MERCEDES ML63 BRABUS</h3>
+                    <div class="vehicle-price">€24,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">280</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.8S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Véhicules Tout-Terrain -->
+            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Volkswagen Amarok" data-price="84000" data-vmax="180" data-accel="6.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Volkswagen+Amarok">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Volkswagen+Amarok" alt="Volkswagen Amarok" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="VOLKSWAGEN AMAROK">VOLKSWAGEN AMAROK</h3>
+                    <div class="vehicle-price">€84,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">180</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">6.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Ford Ranger 2019" data-price="96000" data-vmax="170" data-accel="7.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Ford+Ranger+2019">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Ford+Ranger+2019" alt="Ford Ranger 2019" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="FORD RANGER 2019">FORD RANGER 2019</h3>
+                    <div class="vehicle-price">€96,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">170</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">7.0S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Dodge RAM Rebel TRX" data-price="108000" data-vmax="190" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Dodge+RAM+Rebel+TRX">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Dodge+RAM+Rebel+TRX" alt="Dodge RAM Rebel TRX" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="DODGE RAM REBEL TRX">DODGE RAM REBEL TRX</h3>
+                    <div class="vehicle-price">€108,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">190</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Mercedes AMG G63 6x6" data-price="900000" data-vmax="200" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+AMG+G63+6x6">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+AMG+G63+6x6" alt="Mercedes AMG G63 6x6" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="MERCEDES AMG G63 6X6">MERCEDES AMG G63 6X6</h3>
+                    <div class="vehicle-price">€900,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">200</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">4.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Toyota Tundra 2019" data-price="102000" data-vmax="160" data-accel="7.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Toyota+Tundra+2019">
+                <div class="vehicle-image-container">
+                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Toyota+Tundra+2019" alt="Toyota Tundra 2019" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="TOYOTA TUNDRA 2019">TOYOTA TUNDRA 2019</h3>
+                    <div class="vehicle-price">€102,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">160</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">7.5S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Add Vehicle Modal - Compact -->
+    <div class="modal" id="addVehicleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title glitch" data-text="AJOUTER UN VÉHICULE">AJOUTER UN VÉHICULE</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <form id="addVehicleForm">
+                <div class="form-group">
+                    <label class="form-label glitch" data-text="NOM DU VÉHICULE">NOM DU VÉHICULE</label>
+                    <input type="text" name="name" class="form-input" placeholder="EX: INFERNUS CLASSIC" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label glitch" data-text="CATÉGORIE">CATÉGORIE</label>
+                    <select name="category" class="form-select" required>
+                        <option value="">SÉLECTIONNEZ UNE CATÉGORIE</option>
+                        <option value="berline">BERLINE</option>
+                        <option value="compact">COMPACT</option>
+                        <option value="suv">SUV</option>
+                        <option value="sportive">SPORTIVE</option>
+                        <option value="deux-roue">DEUX ROUES</option>
+                        <option value="hypercar">HYPERCAR</option>
+                        <option value="tout-terrain">TOUT-TERRAIN</option>
+                        <option value="special">SPÉCIAL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label glitch" data-text="PRIX ($)">PRIX ($)</label>
+                    <input type="number" name="price" class="form-input" placeholder="EX: 180000" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label glitch" data-text="VITESSE MAX (KM/H)">VITESSE MAX (KM/H)</label>
+                    <input type="number" name="vmax" class="form-input" placeholder="EX: 220" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label glitch" data-text="0-100 KM/H (S)">0-100 KM/H (S)</label>
+                    <input type="number" name="acceleration" step="0.1" class="form-input" placeholder="EX: 3.2" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label glitch" data-text="URL DE L'IMAGE">URL DE L'IMAGE</label>
+                    <input type="url" name="imageUrl" class="form-input" placeholder="HTTPS://EXAMPLE.COM/IMAGE.JPG" value="https://placehold.co/500x240/0a0a0a/ff0040?text=NEW+VEHICLE" required>
+                </div>
+                <button type="submit" class="submit-btn glitch-hover">AJOUTER LE VÉHICULE</button>
+            </form>
+        </div>
+    </div>
+    <!-- Vehicle Details Modal - Compact -->
+    <div class="details-modal" id="vehicleDetailsModal">
+        <div class="details-content">
+            <div class="details-header">
+                <h3 class="details-title" id="detailsVehicleName">NOM DU VÉHICULE</h3>
+                <button class="close-modal" id="closeDetailsModal">&times;</button>
+            </div>
+            <div class="details-image-container">
+                <img src="" alt="" id="detailsVehicleImage" class="details-image">
+            </div>
+            <div class="details-info">
+                <div class="detail-item">
+                    <div class="detail-label">PRIX</div>
+                    <div class="detail-value" id="detailsPrice">€0</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">VITESSE MAX</div>
+                    <div class="detail-value" id="detailsVmax">0 KM/H</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">0-100 KM/H</div>
+                    <div class="detail-value" id="detailsAccel">0.0S</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">CATÉGORIE</div>
+                    <div class="detail-value" id="detailsCategory">-</div>
+                </div>
+            </div>
+            <div class="details-actions">
+                <button class="action-btn btn-buy" id="detailsBuyBtn" onclick="addToCartFromDetails()">ACHETER</button>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="glitch" data-text="NEON MOTORS">NEON MOTORS</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    Système premium de véhicules pour serveurs GTA Roleplay. Interface glitchée, performance optimale.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link glitch-hover"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link glitch-hover"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link glitch-hover"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link glitch-hover"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>CATÉGORIES</h3>
+                <ul class="footer-links">
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> BERLINE</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> COMPACT</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> SUV</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> SPORTIVE</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> DEUX ROUES</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>LIENS UTILES</h3>
+                <ul class="footer-links">
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> CONDITIONS</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> CONFIDENTIALITÉ</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> SUPPORT</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> GUIDE</a></li>
+                    <li><a href="#" class="glitch-hover" id="adminLoginLink"><i class="fas fa-chevron-right"></i> ADMIN</a></li> <!-- Nouveau lien -->
+                </ul>
+            </div>
+        </div>
+        <div class="copyright glitch" data-text="&copy; 2024 NEON MOTORS. TOUS DROITS RÉSERVÉS.">
+            &copy; 2024 NEON MOTORS. TOUS DROITS RÉSERVÉS. CE SITE EST EXCLUSIVEMENT DESTINÉ À L'USAGE GTA ROLEPLAY, Ceratins liens ne sont pas cliquable pour cette raison.
+        </div>
+    </footer>
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-rain');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const matrix = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const matrixArray = matrix.split("");
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        for(let x = 0; x < columns; x++)
+            drops[x] = 1;
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#ff0040";
+            ctx.font = fontSize + "px monospace";
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+                    drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 35);
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+
+        // Category Selection - WORKING VERSION
+        const categoryCards = document.querySelectorAll('.category-card');
+        const vehiclesGrid = document.getElementById('vehiclesGrid');
+        const currentCategoryElement = document.querySelector('.current-category');
+        const vehicleCards = document.querySelectorAll('.vehicle-card');
+
+        function filterVehicles(selectedCategory) {
+            // Update active category card
+            categoryCards.forEach(card => {
+                if (card.getAttribute('data-category') === selectedCategory) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+            // Update current category display
+            let categoryName = 'TOUTES LES CATÉGORIES';
+            if (selectedCategory !== 'all') {
+                const activeCard = document.querySelector(`.category-card[data-category="${selectedCategory}"]`);
+                if (activeCard) {
+                    categoryName = activeCard.querySelector('.category-title').textContent;
+                }
+            }
+            currentCategoryElement.textContent = categoryName;
+            currentCategoryElement.setAttribute('data-text', categoryName);
+            // Filter vehicles
+            vehicleCards.forEach(vehicle => {
+                const vehicleCategory = vehicle.getAttribute('data-category');
+                if (selectedCategory === 'all' || vehicleCategory === selectedCategory) {
+                    vehicle.style.display = 'block';
+                } else {
+                    vehicle.style.display = 'none';
+                }
+            });
+
+            // Scroll to vehicles section
+            const vehiclesSection = document.getElementById('vehicles');
+            if (vehiclesSection) {
+                vehiclesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Add click event to each category card
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const selectedCategory = card.getAttribute('data-category');
+                filterVehicles(selectedCategory);
+            });
+        });
+
+        // Add Vehicle Modal
+        const addVehicleBtn = document.getElementById('openAddModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const addVehicleModal = document.getElementById('addVehicleModal');
+        const addVehicleForm = document.getElementById('addVehicleForm');
+        addVehicleBtn.addEventListener('click', () => {
+            addVehicleModal.style.display = 'block';
+        });
+        closeModalBtn.addEventListener('click', () => {
+            addVehicleModal.style.display = 'none';
+        });
+        window.addEventListener('click', (e) => {
+            if (e.target === addVehicleModal) {
+                addVehicleModal.style.display = 'none';
+            }
+        });
+        addVehicleForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = addVehicleForm.name.value;
+            const category = addVehicleForm.category.value;
+            const price = addVehicleForm.price.value;
+            const vmax = addVehicleForm.vmax.value;
+            const acceleration = addVehicleForm.acceleration.value;
+            const imageUrl = addVehicleForm.imageUrl.value;
+
+            const newVehicleCard = document.createElement('div');
+            newVehicleCard.className = 'vehicle-card glitch-hover';
+            newVehicleCard.setAttribute('data-category', category);
+            newVehicleCard.setAttribute('data-name', name);
+            newVehicleCard.setAttribute('data-price', price);
+            newVehicleCard.setAttribute('data-vmax', vmax);
+            newVehicleCard.setAttribute('data-accel', acceleration);
+            newVehicleCard.setAttribute('data-image', imageUrl);
+            newVehicleCard.innerHTML = `
+                <div class="vehicle-image-container">
+                    <img src="${imageUrl}" alt="${name}" class="vehicle-image">
+                </div>
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name glitch" data-text="${name}">${name}</h3>
+                    <div class="vehicle-price">€${parseInt(price).toLocaleString()}</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <span class="spec-value">${vmax}</span>
+                            <span>VMAX (KM/H)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-value">${acceleration}S</span>
+                            <span>0-100 KM/H</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
+                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
+                    </div>
+                </div>
+            `;
+            vehiclesGrid.appendChild(newVehicleCard);
+            const newButtons = newVehicleCard.querySelectorAll('.action-btn');
+            newButtons.forEach(btn => {
+                if (btn.classList.contains('btn-buy')) {
+                    btn.addEventListener('click', function() {
+                        alert(`✅ VÉHICULE "${name}" AJOUTÉ À VOTRE GARAGE!`);
+                    });
+                }
+            });
+            newVehicleCard.addEventListener('mouseenter', () => {
+                newVehicleCard.style.animation = 'none';
+                setTimeout(() => {
+                    newVehicleCard.style.animation = 'glitch-hover 0.3s';
+                }, 10);
+            });
+            addVehicleModal.style.display = 'none';
+            addVehicleForm.reset();
+            updateCategoryCount(category);
+            showSuccessMessage('VÉHICULE AJOUTÉ AVEC SUCCÈS!');
+        });
+        function updateCategoryCount(category) {
+            const categoryCard = document.querySelector(`.category-card[data-category="${category}"]`);
+            if (categoryCard) {
+                const countElement = categoryCard.querySelector('.category-count');
+                const currentCount = parseInt(countElement.textContent);
+                countElement.textContent = `${currentCount + 1} VÉHICULES`;
+            }
+            const allCard = document.querySelector('.category-card[data-category="all"]');
+            const allCountElement = allCard.querySelector('.category-count');
+            const allCurrentCount = parseInt(allCountElement.textContent);
+            allCountElement.textContent = `${allCurrentCount + 1} VÉHICULES`;
+        }
+        function showSuccessMessage(message) {
+            const successDiv = document.createElement('div');
+            successDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #00ff88;
+                color: #000000;
+                padding: 18px 30px;
+                font-weight: bold;
+                font-family: 'Orbitron', sans-serif;
+                z-index: 3000;
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
+                animation: slideIn 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+                border: 2px solid #00ff88;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                font-size: 1rem;
+                border-radius: 10px;
+            `;
+            successDiv.textContent = message;
+            document.body.appendChild(successDiv);
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        // Vehicle Details Modal
+        const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+        const closeDetailsModal = document.getElementById('closeDetailsModal');
+        const detailsVehicleName = document.getElementById('detailsVehicleName');
+        const detailsVehicleImage = document.getElementById('detailsVehicleImage');
+        const detailsPrice = document.getElementById('detailsPrice');
+        const detailsVmax = document.getElementById('detailsVmax');
+        const detailsAccel = document.getElementById('detailsAccel');
+        const detailsCategory = document.getElementById('detailsCategory');
+        const detailsBuyBtn = document.getElementById('detailsBuyBtn');
+        function showVehicleDetails(button) {
+            const vehicleCard = button.closest('.vehicle-card');
+            const name = vehicleCard.getAttribute('data-name');
+            const price = vehicleCard.getAttribute('data-price');
+            const vmax = vehicleCard.getAttribute('data-vmax');
+            const accel = vehicleCard.getAttribute('data-accel');
+            const image = vehicleCard.getAttribute('data-image');
+            const category = vehicleCard.getAttribute('data-category');
+            detailsVehicleName.textContent = name;
+            detailsVehicleImage.src = image;
+            detailsVehicleImage.alt = name;
+            detailsPrice.textContent = `€${parseInt(price).toLocaleString()}`;
+            detailsVmax.textContent = `${vmax} KM/H`;
+            detailsAccel.textContent = `${accel}S`;
+            const categoryCard = document.querySelector(`.category-card[data-category="${category}"]`);
+            detailsCategory.textContent = categoryCard ? categoryCard.querySelector('.category-title').textContent : category.toUpperCase();
+            vehicleDetailsModal.style.display = 'block';
+        }
+        closeDetailsModal.addEventListener('click', () => {
+            vehicleDetailsModal.style.display = 'none';
+        });
+        window.addEventListener('click', (e) => {
+            if (e.target === vehicleDetailsModal) {
+                vehicleDetailsModal.style.display = 'none';
+            }
+        });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    navMenu.classList.remove('show');
+                }
+            });
+        });
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(0, 0, 0, 0.98)';
+                header.style.boxShadow = '0 5px 25px rgba(255, 0, 64, 0.4)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+        // Handle window resize for canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // --- Panier ---
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeCartModal = document.getElementById('closeCartModal');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const clearCartBtn = document.getElementById('clearCartBtn');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartEmptyMessage = document.getElementById('cartEmptyMessage');
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartBadge() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+        }
+
+        function updateCartDisplay() {
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItems.appendChild(cartEmptyMessage);
+                cartEmptyMessage.style.display = 'block';
+                cartTotal.textContent = 'Total: €0';
+                updateCartBadge();
+                return;
+            } else {
+                cartEmptyMessage.style.display = 'none';
+            }
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">€${item.price.toLocaleString()}</div>
+                        <div class="cart-item-quantity">Quantité: ${item.quantity}</div>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${index})">Supprimer</button>
+                `;
+                cartItems.appendChild(cartItemElement);
+            });
+
+            cartTotal.textContent = `Total: €${total.toLocaleString()}`;
+            updateCartBadge();
+        }
+
+        function addToCart(button) {
+            const vehicleCard = button.closest('.vehicle-card');
+            const name = vehicleCard.getAttribute('data-name');
+            const price = parseInt(vehicleCard.getAttribute('data-price'));
+
+            const existingItemIndex = cart.findIndex(item => item.name === name);
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showSuccessMessage('VÉHICULE AJOUTÉ AU PANIER!');
+        }
+
+        function addToCartFromDetails() {
+            const name = detailsVehicleName.textContent;
+            const price = parseInt(detailsPrice.textContent.replace('€', '').replace(/\s/g, ''));
+
+            const existingItemIndex = cart.findIndex(item => item.name === name);
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showSuccessMessage('VÉHICULE AJOUTÉ AU PANIER!');
+            vehicleDetailsModal.style.display = 'none';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        function clearCart() {
+            cart = [];
+            localStorage.removeItem('cart');
+            updateCartDisplay();
+        }
+
+        cartIcon.addEventListener('click', () => {
+            updateCartDisplay();
+            cartModal.style.display = 'block';
+        });
+
+        closeCartModal.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+
+        clearCartBtn.addEventListener('click', clearCart);
+
+        // Initialiser le badge du panier au chargement
+        updateCartBadge();
+
+        // --- Nouvelle fonctionnalité Admin et Service ---
+        const adminLoginLink = document.getElementById('adminLoginLink');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const loginForm = document.getElementById('loginForm');
+        const servicePage = document.getElementById('servicePage');
+        const closeServiceModal = document.getElementById('closeServiceModal');
+        const serviceLink = document.getElementById('serviceLink');
+        const startServiceBtn = document.getElementById('startServiceBtn');
+        const stopServiceBtn = document.getElementById('stopServiceBtn');
+        const noWorkBtn = document.getElementById('noWorkBtn');
+        const serviceTimer = document.getElementById('serviceTimer');
+        const recordSaleBtn = document.getElementById('recordSaleBtn');
+        const vehicleSearch = document.getElementById('vehicleSearch');
+        const clientName = document.getElementById('clientName');
+        const pauseServiceBtn = document.getElementById('pauseServiceBtn');
+        const resumeServiceBtn = document.getElementById('resumeServiceBtn');
+
+        // Etat du service
+        let serviceInterval = null;
+        let serviceStartTime = null;
+        let serviceActive = false;
+        let servicePaused = false;
+        let servicePausedAt = null;
+        let totalPausedTime = 0;
+
+        // Sauvegarde dans localStorage pour persistance
+        function saveServiceState() {
+            localStorage.setItem('serviceState', JSON.stringify({
+                serviceActive,
+                serviceStartTime: serviceStartTime ? serviceStartTime.getTime() : null,
+                servicePaused,
+                servicePausedAt: servicePausedAt ? servicePausedAt.getTime() : null,
+                totalPausedTime
+            }));
+        }
+
+        function loadServiceState() {
+            const state = JSON.parse(localStorage.getItem('serviceState'));
+            if (state) {
+                serviceActive = state.serviceActive;
+                serviceStartTime = state.serviceStartTime ? new Date(state.serviceStartTime) : null;
+                servicePaused = state.servicePaused;
+                servicePausedAt = state.servicePausedAt ? new Date(state.servicePausedAt) : null;
+                totalPausedTime = state.totalPausedTime || 0;
+            }
+        }
+
+        // Timer affiché en continu même si l'interface est fermée
+        function updateServiceTimerDisplay() {
+            if (!serviceActive || !serviceStartTime) {
+                serviceTimer.textContent = '00:00:00';
+                return;
+            }
+            let elapsed;
+            if (servicePaused && servicePausedAt) {
+                elapsed = servicePausedAt - serviceStartTime - totalPausedTime;
+            } else {
+                elapsed = Date.now() - serviceStartTime.getTime() - totalPausedTime;
+            }
+            let hours = Math.floor(elapsed / (1000 * 60 * 60));
+            let minutes = Math.floor((elapsed / (1000 * 60)) % 60);
+            let seconds = Math.floor((elapsed / 1000) % 60);
+            serviceTimer.textContent = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        }
+
+        // On met à jour le timer toutes les secondes
+        function startServiceInterval() {
+            if (serviceInterval) clearInterval(serviceInterval);
+            serviceInterval = setInterval(updateServiceTimerDisplay, 1000);
+        }
+
+        // Ouvrir la modale de connexion
+        adminLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'block';
+        });
+
+        // Fermer la modale de connexion
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        // Soumettre le formulaire de connexion
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            loginForm.reset();
+            serviceLink.style.display = 'block';
+            showSuccessMessage('Connexion réussie ! Accès au panel service autorisé.');
+        });
+
+        // Fermer la modale de connexion en cliquant en dehors
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === servicePage) {
+                servicePage.style.display = 'none';
+                // NE PAS arrêter le timer ni le service si on ferme la page !
+            }
+        });
+
+        // Afficher la page de service
+        serviceLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (serviceLink.style.display !== 'none') {
+                servicePage.style.display = 'block';
+                updateServiceButtons();
+                updateServiceTimerDisplay();
+            }
+        });
+
+        // Fermer la page de service
+        closeServiceModal.addEventListener('click', () => {
+            servicePage.style.display = 'none';
+        });
+
+        // -- Boutons et logique du service --
+        function updateServiceButtons() {
+            if (!serviceActive) {
+                startServiceBtn.style.display = 'block';
+                stopServiceBtn.style.display = 'none';
+                pauseServiceBtn.style.display = 'none';
+                resumeServiceBtn.style.display = 'none';
+            } else if (servicePaused) {
+                startServiceBtn.style.display = 'none';
+                stopServiceBtn.style.display = 'block';
+                pauseServiceBtn.style.display = 'none';
+                resumeServiceBtn.style.display = 'block';
+            } else {
+                startServiceBtn.style.display = 'none';
+                stopServiceBtn.style.display = 'block';
+                pauseServiceBtn.style.display = 'block';
+                resumeServiceBtn.style.display = 'none';
+            }
+        }
+
+        function startService() {
+            if (serviceActive) return;
+            serviceActive = true;
+            serviceStartTime = new Date();
+            servicePaused = false;
+            servicePausedAt = null;
+            totalPausedTime = 0;
+            updateServiceButtons();
+            updateServiceTimerDisplay();
+            startServiceInterval();
+            saveServiceState();
+        }
+
+        function stopService() {
+            if (!serviceActive) return;
+            serviceActive = false;
+            servicePaused = false;
+            servicePausedAt = null;
+            totalPausedTime = 0;
+            serviceStartTime = null;
+            updateServiceButtons();
+            updateServiceTimerDisplay();
+            clearInterval(serviceInterval);
+            saveServiceState();
+        }
+
+        function pauseService() {
+            if (!serviceActive || servicePaused) return;
+            servicePaused = true;
+            servicePausedAt = new Date();
+            updateServiceButtons();
+            updateServiceTimerDisplay();
+            clearInterval(serviceInterval);
+            saveServiceState();
+        }
+
+        function resumeService() {
+            if (!serviceActive || !servicePaused) return;
+            // Ajoute le temps de pause total
+            totalPausedTime += (new Date() - servicePausedAt);
+            servicePaused = false;
+            servicePausedAt = null;
+            updateServiceButtons();
+            updateServiceTimerDisplay();
+            startServiceInterval();
+            saveServiceState();
+        }
+
+        // PAS DE TRAVAIL
+        function noWork() {
+            if (serviceActive) {
+                stopService();
+            }
+            alert('Statut "Absent pour aujourd\'hui" activé.');
+        }
+
+        // ENREGISTRER UNE VENTE
+        function recordSale() {
+            const vehicle = vehicleSearch.value.trim();
+            const client = clientName.value.trim();
+            if (!vehicle || !client) {
+                alert('Veuillez entrer un véhicule et un nom de client.');
+                return;
+            }
+            alert(`Vente enregistrée : ${vehicle} vendu à ${client}.`);
+            vehicleSearch.value = '';
+            clientName.value = '';
+        }
+
+        // Attacher les événements
+        startServiceBtn.addEventListener('click', startService);
+        stopServiceBtn.addEventListener('click', stopService);
+        pauseServiceBtn.addEventListener('click', pauseService);
+        resumeServiceBtn.addEventListener('click', resumeService);
+        noWorkBtn.addEventListener('click', noWork);
+        recordSaleBtn.addEventListener('click', recordSale);
+
+        // Au chargement : restaurer l'état
+        loadServiceState();
+        if (serviceActive) {
+            updateServiceButtons();
+            updateServiceTimerDisplay();
+            if (!servicePaused) {
+                startServiceInterval();
+            }
+        }
+
+        // En cas de fermeture du navigateur, sauvegarder l'état du service
+        window.addEventListener('beforeunload', saveServiceState);
+
+        // Attacher les événements aux boutons de la page de service
+        startServiceBtn.addEventListener('click', startService);
+        stopServiceBtn.addEventListener('click', stopService);
+        noWorkBtn.addEventListener('click', noWork);
+        recordSaleBtn.addEventListener('click', recordSale);
+
+    </script>
+</body>
+</html>
