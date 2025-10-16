@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CONCESSIONNAIRE | IMPACT LIFE VEHICLES</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -831,7 +832,6 @@
             gap: 16px;
             justify-content: center;
         }
-
         /* Panier */
         .cart-icon {
             position: fixed;
@@ -872,7 +872,6 @@
             font-weight: bold;
             font-family: 'Orbitron', sans-serif;
         }
-
         .cart-modal {
             display: none;
             position: fixed;
@@ -890,7 +889,7 @@
             border: 3px solid var(--neon-red);
             border-radius: 16px;
             width: 90%;
-            max-width: 700px; /* Légèrement plus large */
+            max-width: 700px;
             margin: 5rem auto;
             padding: 2.2rem;
             position: relative;
@@ -918,7 +917,7 @@
         }
         .cart-items {
             margin-bottom: 2rem;
-            max-height: 40vh; /* Limite la hauteur de la liste */
+            max-height: 40vh;
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -927,7 +926,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 0, 64, 0.2); /* Bordure plus subtile */
+            border-bottom: 1px solid rgba(255, 0, 64, 0.2);
             margin-bottom: 1rem;
             background: rgba(20, 20, 20, 0.6);
             border-radius: 8px;
@@ -986,10 +985,10 @@
         .cart-actions {
             display: flex;
             gap: 15px;
-            justify-content: flex-end; /* Boutons alignés à droite */
+            justify-content: flex-end;
         }
         .cart-btn {
-            padding: 14px 24px; /* Boutons plus petits */
+            padding: 14px 24px;
             border: 2px solid var(--neon-red);
             border-radius: 8px;
             font-weight: 700;
@@ -1001,7 +1000,7 @@
             letter-spacing: 1px;
             position: relative;
             overflow: hidden;
-            min-width: 150px; /* Largeur minimale pour alignement */
+            min-width: 150px;
         }
         .btn-clear {
             background: transparent;
@@ -1018,7 +1017,6 @@
             padding: 2rem 0;
             font-style: italic;
         }
-
         /* Modal de Connexion Admin */
         .login-modal {
             display: none;
@@ -1113,7 +1111,6 @@
             transform: translateY(-4px) scale(1.04);
             box-shadow: 0 0 30px var(--accent-glow);
         }
-
         /* Page de Service */
         .service-page {
             display: none;
@@ -1250,7 +1247,163 @@
             transform: translateY(-4px) scale(1.04);
             box-shadow: 0 0 30px var(--accent-glow);
         }
-
+        /* --- NOUVELLE MODALE DOSSIER --- */
+        .dossier-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 7000;
+            backdrop-filter: blur(8px);
+            animation: modal-fade-in 0.4s ease;
+        }
+        .dossier-content {
+            background: var(--card-bg);
+            border: 3px solid var(--neon-red);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 0 50px var(--accent-glow);
+            font-family: 'Share Tech Mono', monospace;
+            backdrop-filter: blur(12px);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .dossier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--neon-red);
+        }
+        .dossier-title {
+            font-size: 1.9rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-red-glow);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .role-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .role-btn {
+            padding: 14px 28px;
+            background: var(--gradient-red);
+            color: var(--dark-bg);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            min-width: 150px;
+        }
+        .role-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .vendeurs-list {
+            display: none;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--neon-red);
+        }
+        .vendeurs-title {
+            text-align: center;
+            font-size: 1.6rem;
+            color: var(--neon-red);
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .vendeurs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+        .vendeur-btn {
+            padding: 12px;
+            background: rgba(20, 20, 20, 0.9);
+            color: var(--neon-red);
+            border: 2px solid var(--neon-red);
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .vendeur-btn:hover {
+            background: var(--neon-red);
+            color: var(--dark-bg);
+            transform: scale(1.05);
+        }
+        .summary-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--neon-red);
+        }
+        .summary-title {
+            font-size: 1.6rem;
+            color: var(--neon-red);
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .summary-box {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 1.2rem;
+            border-radius: 10px;
+            border: 1px solid var(--neon-red);
+        }
+        .summary-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .summary-value {
+            font-size: 1.8rem;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+        }
+        .sales-list {
+            margin-top: 1.5rem;
+        }
+        .sales-title {
+            color: var(--neon-red);
+            margin-bottom: 0.8rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .sale-item {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,0,64,0.2);
+            font-size: 1.1rem !important; /* ← agrandi */
+            font-size: 0.95rem;
+        }
         /* Footer */
         footer {
             background: var(--darker-bg);
@@ -1337,6 +1490,17 @@
             transform: translateY(-5px) rotate(10deg);
             box-shadow: 0 0 20px var(--accent-glow);
         }
+        /* --- Scroll Animation --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .copyright {
             text-align: center;
             padding-top: 2rem;
@@ -1347,7 +1511,6 @@
             font-family: 'Share Tech Mono', monospace;
             letter-spacing: 1px;
         }
-
         /* Responsive Design */
         @media (max-width: 1200px) {
             .categories-grid {
@@ -1413,7 +1576,6 @@
             .details-image-container {
                 height: 280px;
             }
-            /* Responsive Panier */
             .cart-content {
                 width: 95%;
                 margin: 2rem auto;
@@ -1440,6 +1602,17 @@
             .service-content {
                 width: 95%;
                 margin: 3rem auto;
+            }
+            .dossier-content {
+                width: 95%;
+                margin: 2rem auto;
+            }
+            .role-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr;
             }
         }
         @media (max-width: 480px) {
@@ -1484,13 +1657,11 @@
 <body>
     <!-- Matrix Rain Canvas -->
     <canvas id="matrix-rain"></canvas>
-
     <!-- Bouton Panier -->
     <button class="cart-icon" id="cartIcon">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-badge" id="cartBadge">0</span>
     </button>
-
     <!-- Modal Panier -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
@@ -1499,17 +1670,14 @@
                 <button class="close-modal" id="closeCartModal">&times;</button>
             </div>
             <div class="cart-items" id="cartItems">
-                <!-- Les articles du panier seront ajoutés ici dynamiquement -->
                 <div class="cart-empty-message" id="cartEmptyMessage">Votre panier est vide.</div>
             </div>
             <div class="cart-total" id="cartTotal">Total: €0</div>
             <div class="cart-actions">
                 <button class="cart-btn btn-clear glitch-hover" id="clearCartBtn">TOUT SUPPRIMER</button>
-                <!-- Bouton "PASSER LA COMMANDE" supprimé -->
             </div>
         </div>
     </div>
-
     <!-- Modal de Connexion Admin -->
     <div class="login-modal" id="loginModal">
         <div class="login-content">
@@ -1530,7 +1698,6 @@
             </form>
         </div>
     </div>
-
     <!-- Page de Service -->
     <div class="service-page" id="servicePage">
         <div class="service-content">
@@ -1554,7 +1721,56 @@
             </div>
         </div>
     </div>
-
+    <!-- --- NOUVELLE MODALE DOSSIER --- -->
+    <div class="dossier-page" id="dossierPage">
+        <div class="dossier-content">
+            <div class="dossier-header">
+                <h3 class="dossier-title glitch" data-text="DOSSIER EMPLOYÉS">DOSSIER EMPLOYÉS</h3>
+                <button class="close-modal" id="closeDossierModal">&times;</button>
+            </div>
+            <div class="role-buttons">
+                <button class="role-btn glitch-hover" data-role="PDG">PDG</button>
+                <button class="role-btn glitch-hover" data-role="Co-PDG">Co-PDG</button>
+                <button class="role-btn glitch-hover" data-role="Vendeur">Vendeur</button>
+            </div>
+            <div class="vendeurs-list" id="vendeursList">
+                <h4 class="vendeurs-title glitch" data-text="LISTE DES VENDEURS">LISTE DES VENDEURS</h4>
+                <div class="vendeurs-grid" id="vendeursGrid">
+                    <!-- Dynamiquement rempli -->
+                </div>
+            </div>
+            <div class="summary-section" id="summarySection" style="display:none;">
+            <h4 class="summary-title glitch" id="summaryTitle">RÉCAPITULATIF</h4>
+        
+            <!-- Sélecteur de semaine (visible uniquement pour le PDG) -->
+            <div id="weekSelectorContainer" style="text-align: center; margin-bottom: 1.5rem; display: none;">
+                <label for="weekSelector" style="display: block; margin-bottom: 0.5rem; color: var(--neon-red); font-family: 'Orbitron', sans-serif;">SEMAINE :</label>
+                <select id="weekSelector" class="form-select" style="width: 220px; margin: 0 auto; display: block;"></select>
+            </div>
+        
+            <div class="summary-grid">
+                <div class="summary-box">
+                    <div class="summary-label">HEURES DE SERVICE</div>
+                    <div class="summary-value" id="totalHeures">00h00min00s</div>
+                </div>
+                <div class="summary-box">
+                    <div class="summary-label">VOITURES VENDUES</div>
+                    <div class="summary-value" id="totalVentes">0</div>
+                </div>
+                <div class="summary-box" style="grid-column: 1 / -1;">
+                    <div class="summary-label">SALAIRE ESTIMÉ</div>
+                    <div class="summary-value" id="salaryDisplay" style="font-size: 1.8rem; color: var(--neon-red); font-family: 'Orbitron', sans-serif;"></div>
+                </div>
+            </div>
+            <div class="sales-list">
+                <h5 class="sales-title">DÉTAILS DES VENTES</h5>
+                <div id="salesDetails">
+                    <!-- Liste des ventes -->
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
     <!-- Header -->
     <header>
         <div class="header-container">
@@ -1562,7 +1778,7 @@
                 <div class="logo-icon">
                     <i class="fas fa-car"></i>
                 </div>
-                <div class="logo-text glitch" data-text="Concessionnaire">Concessionnaire</div>
+                <div class="logo-text glitch" data-text="AutoCar">AutoCar</div>
             </div>
             <button class="mobile-menu-btn" id="menuBtn">
                 <i class="fas fa-bars"></i>
@@ -1572,7 +1788,8 @@
                     <li><a href="#home" class="nav-link glitch-hover">ACCUEIL</a></li>
                     <li><a href="#categories" class="nav-link glitch-hover">CATÉGORIES</a></li>
                     <li><a href="#vehicles" class="nav-link glitch-hover">VÉHICULES</a></li>
-                    <li><a href="#" class="nav-link glitch-hover" id="serviceLink" style="display: none;">SERVICE</a></li> <!-- Nouveau lien -->
+                    <li><a href="#" class="nav-link glitch-hover" id="serviceLink" style="display: none;">SERVICE</a></li>
+                    <li><a href="#" class="nav-link glitch-hover" id="dossierLink" style="display: none;">DOSSIER</a></li> <!-- Nouveau lien -->
                 </ul>
             </nav>
         </div>
@@ -1580,11 +1797,11 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1 class="glitch" data-text="Impact Life VEHICLES">Impact Life VEHICLES</h1>
-            <p class="hero-subtitle">Système de véhicules premium pour serveurs GTA Roleplay. Interface glitchée, performance optimale, expérience immersive garantie.</p>
-            <div class="hero-stats">
+            <h1 class="glitch fade-in" data-text="Impact Life VEHICLES">Impact Life VEHICLES</h1>
+            <p class="hero-subtitle fade-in">Système de véhicules premium pour serveurs GTA Roleplay. Interface glitchée, performance optimale, expérience immersive garantie.</p>
+            <div class="hero-stats fade-in">
                 <div class="stat-item">
-                    <div class="stat-number glitch" data-text="250+">250+</div>
+                    <div class="stat-number glitch" data-text="100+">100+</div>
                     <div class="stat-label">VÉHICULES</div>
                 </div>
                 <div class="stat-item">
@@ -1596,7 +1813,7 @@
                     <div class="stat-label">SUPPORT</div>
                 </div>
             </div>
-            <button class="cta-button glitch-hover">ACCÉDER AU PANIER</button>
+            <button class="cta-button glitch-hover fade-in">ACCÉDER AU PANIER</button>
         </div>
     </section>
     <!-- Categories Section - Hexagonal Grid Layout -->
@@ -1611,7 +1828,7 @@
                 </div>
                 <h3 class="category-title">TOUTES</h3>
                 <p class="category-description">Afficher tous les véhicules disponibles dans notre collection premium.</p>
-                <div class="category-count">34 VÉHICULES</div> <!-- Mise à jour du total -->
+                <div class="category-count">34 VÉHICULES</div>
             </div>
             <div class="category-card glitch-hover" data-category="berline">
                 <div class="category-icon">
@@ -1619,7 +1836,7 @@
                 </div>
                 <h3 class="category-title">BERLINE</h3>
                 <p class="category-description">Élégance, confort et prestige pour vos déplacements urbains et missions RP.</p>
-                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+                <div class="category-count">0 VÉHICULES</div>
             </div>
             <div class="category-card glitch-hover" data-category="compact">
                 <div class="category-icon">
@@ -1627,7 +1844,7 @@
                 </div>
                 <h3 class="category-title">COMPACT</h3>
                 <p class="category-description">Agilité, économie et maniabilité parfaite pour la ville et zones étroites.</p>
-                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+                <div class="category-count">0 VÉHICULES</div>
             </div>
             <div class="category-card glitch-hover" data-category="suv">
                 <div class="category-icon">
@@ -1635,7 +1852,7 @@
                 </div>
                 <h3 class="category-title">SUV</h3>
                 <p class="category-description">Espace, polyvalence et robustesse pour toute la famille et toutes les missions.</p>
-                <div class="category-count">17 VÉHICULES</div> <!-- Mise à jour -->
+                <div class="category-count">17 VÉHICULES</div>
             </div>
             <div class="category-card glitch-hover" data-category="sportive">
                 <div class="category-icon">
@@ -1643,15 +1860,15 @@
                 </div>
                 <h3 class="category-title">SPORTIVE</h3>
                 <p class="category-description">Performance, adrénaline et style pour amateurs de vitesse et sensations fortes.</p>
-                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+                <div class="category-count">0 VÉHICULES</div>
             </div>
-            <div class="category-card glitch-hover" data-category="deux-roue">
+            <div class="category-card glitch-hover" data-category="deux-roues">
                 <div class="category-icon">
                     <i class="fas fa-motorcycle"></i>
                 </div>
                 <h3 class="category-title">DEUX ROUES</h3>
                 <p class="category-description">Liberté, agilité et maniabilité absolue pour traverser la ville à toute vitesse.</p>
-                <div class="category-count">9 VÉHICULES</div> <!-- Mise à jour -->
+                <div class="category-count">9 VÉHICULES</div>
             </div>
             <div class="category-card glitch-hover" data-category="hypercar">
                 <div class="category-icon">
@@ -1659,7 +1876,7 @@
                 </div>
                 <h3 class="category-title">HYPERCAR</h3>
                 <p class="category-description">Technologie de pointe, vitesse extrême et exclusivité pour joueurs VIP.</p>
-                <div class="category-count">0 VÉHICULES</div> <!-- Mis à zéro -->
+                <div class="category-count">0 VÉHICULES</div>
             </div>
             <div class="category-card glitch-hover" data-category="tout-terrain">
                 <div class="category-icon">
@@ -1667,7 +1884,15 @@
                 </div>
                 <h3 class="category-title">TOUT-TERRAIN</h3>
                 <p class="category-description">Aventure, robustesse et capacité tout-terrain pour explorer chaque recoin.</p>
-                <div class="category-count">5 VÉHICULES</div> <!-- Mise à jour -->
+                <div class="category-count">5 VÉHICULES</div>
+            </div>
+            <div class="category-card glitch-hover" data-category="special">
+                <div class="category-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="category-title">SPÉCIAL</h3>
+                <p class="category-description">Véhicules uniques, customisés ou exclusifs réservés aux joueurs VIP.</p>
+                <div class="category-count">0 VÉHICULES</div>
             </div>
         </div>
     </section>
@@ -2507,7 +2732,7 @@
                     Système premium de véhicules pour serveurs GTA Roleplay. Interface glitchée, performance optimale.
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-link glitch-hover"><i class="fab fa-discord"></i></a>
+                    <a href="https://discord.gg/CDFbZdE3Sm" class="social-link glitch-hover"><i class="fab fa-discord"></i></a>
                     <a href="#" class="social-link glitch-hover"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link glitch-hover"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-link glitch-hover"><i class="fab fa-youtube"></i></a>
@@ -2531,7 +2756,7 @@
                     <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> SUPPORT</a></li>
                     <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> FAQ</a></li>
                     <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> GUIDE</a></li>
-                    <li><a href="#" class="glitch-hover" id="adminLoginLink"><i class="fas fa-chevron-right"></i> ADMIN</a></li> <!-- Nouveau lien -->
+                    <li><a href="#" class="glitch-hover" id="adminLoginLink"><i class="fas fa-chevron-right"></i> ADMIN</a></li>
                 </ul>
             </div>
         </div>
@@ -2541,6 +2766,118 @@
     </footer>
     <script>
         // Matrix Rain Effect
+        const SUPABASE_URL = 'https://iinysqbddaxyiwlymgnh.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlpbnlzcWJkZGF4eWl3bHltZ25oIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTMzMzE1MywiZXhwIjoyMDc0OTA5MTUzfQ.Xkm9kZl5exbQZzBPewQrGbtnlmmlK7CYp8WU_sX9a-w';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let authenticatedUser = null;
+        let userRole = null;
+    
+        // === UTILITAIRES SEMAINE ===
+        function getWeekBounds(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diffToMonday = day === 0 ? -6 : 1 - day;
+            const monday = new Date(d);
+            monday.setDate(d.getDate() + diffToMonday);
+            monday.setHours(0, 0, 0, 0);
+    
+            const sunday = new Date(monday);
+            sunday.setDate(monday.getDate() + 6);
+            sunday.setHours(23, 59, 59, 999);
+    
+            return { monday, sunday };
+        }
+    
+        function getWeekKey(date) {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            d.setHours(0, 0, 0, 0);
+            d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+            const week = Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) / 7);
+            return `${year}-${String(week).padStart(2, '0')}`;
+        }
+    
+        async function getWeeksFromData() {
+            try {
+                const { data: serviceDates, error: serviceErr } = await supabaseClient
+                    .from('service')
+                    .select('date');
+    
+                const { data: venteDates, error: venteErr } = await supabaseClient
+                    .from('vente')
+                    .select('date');
+    
+                if (serviceErr || venteErr) {
+                    return getLast8WeeksFallback();
+                }
+    
+                const allDates = [
+                    ...(serviceDates || []).map(s => s.date),
+                    ...(venteDates || []).map(v => v.date)
+                ];
+    
+                if (allDates.length === 0) {
+                    return getLast8WeeksFallback();
+                }
+    
+                const weekSet = new Set();
+                allDates.forEach(dateStr => {
+                    let d;
+                    if (dateStr.includes('T')) {
+                        d = new Date(dateStr);
+                    } else {
+                        const parts = dateStr.split(' ')[0].split('/');
+                        if (parts.length === 3) {
+                            const [day, month, year] = parts;
+                            d = new Date(`${year}-${month}-${day}`);
+                        }
+                    }
+                    if (d && !isNaN(d.getTime())) {
+                        weekSet.add(getWeekKey(d));
+                    }
+                });
+    
+                const weeks = Array.from(weekSet)
+                    .map(key => {
+                        const [year, weekNum] = key.split('-').map(Number);
+                        const jan4 = new Date(year, 0, 4);
+                        const mondayOfYear = new Date(jan4);
+                        mondayOfYear.setDate(jan4.getDate() - (jan4.getDay() || 7) + 1);
+                        const monday = new Date(mondayOfYear);
+                        monday.setDate(mondayOfYear.getDate() + (weekNum - 1) * 7);
+                        return { key, monday };
+                    })
+                    .sort((a, b) => b.monday - a.monday)
+                    .slice(0, 12)
+                    .map(({ key, monday }) => ({
+                        key,
+                        label: `Semaine du ${monday.toLocaleDateString('fr-FR')}`,
+                        monday
+                    }));
+    
+                return weeks.length > 0 ? weeks : getLast8WeeksFallback();
+            } catch (err) {
+                console.error("Erreur dans getWeeksFromData:", err);
+                return getLast8WeeksFallback();
+            }
+        }
+    
+        function getLast8WeeksFallback() {
+            const weeks = [];
+            const now = new Date();
+            for (let i = 0; i < 8; i++) {
+                const date = new Date(now);
+                date.setDate(now.getDate() - i * 7);
+                const key = getWeekKey(date);
+                const { monday } = getWeekBounds(date);
+                const label = `Semaine du ${monday.toLocaleDateString('fr-FR')}`;
+                if (!weeks.find(w => w.key === key)) {
+                    weeks.push({ key, label, monday });
+                }
+            }
+            return weeks.sort((a, b) => b.monday - a.monday);
+        }
+    
         const canvas = document.getElementById('matrix-rain');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -2566,22 +2903,19 @@
             }
         }
         setInterval(draw, 35);
-
-        // Mobile Menu Toggle
+    
         const menuBtn = document.getElementById('menuBtn');
         const navMenu = document.getElementById('navMenu');
         menuBtn.addEventListener('click', () => {
             navMenu.classList.toggle('show');
         });
-
-        // Category Selection - WORKING VERSION
+    
         const categoryCards = document.querySelectorAll('.category-card');
         const vehiclesGrid = document.getElementById('vehiclesGrid');
         const currentCategoryElement = document.querySelector('.current-category');
         const vehicleCards = document.querySelectorAll('.vehicle-card');
-
         function filterVehicles(selectedCategory) {
-            // Update active category card
+            // Mettre à jour l'UI des catégories
             categoryCards.forEach(card => {
                 if (card.getAttribute('data-category') === selectedCategory) {
                     card.classList.add('active');
@@ -2589,7 +2923,8 @@
                     card.classList.remove('active');
                 }
             });
-            // Update current category display
+        
+            // Déterminer le nom de la catégorie affichée
             let categoryName = 'TOUTES LES CATÉGORIES';
             if (selectedCategory !== 'all') {
                 const activeCard = document.querySelector(`.category-card[data-category="${selectedCategory}"]`);
@@ -2599,8 +2934,10 @@
             }
             currentCategoryElement.textContent = categoryName;
             currentCategoryElement.setAttribute('data-text', categoryName);
-            // Filter vehicles
-            vehicleCards.forEach(vehicle => {
+        
+            // Filtrer DYNAMIQUEMENT les véhicules (même si chargés depuis DB)
+            const allVehicleCards = vehiclesGrid.querySelectorAll('.vehicle-card');
+            allVehicleCards.forEach(vehicle => {
                 const vehicleCategory = vehicle.getAttribute('data-category');
                 if (selectedCategory === 'all' || vehicleCategory === selectedCategory) {
                     vehicle.style.display = 'block';
@@ -2608,23 +2945,20 @@
                     vehicle.style.display = 'none';
                 }
             });
-
-            // Scroll to vehicles section
+        
+            // Scroll vers la section
             const vehiclesSection = document.getElementById('vehicles');
             if (vehiclesSection) {
                 vehiclesSection.scrollIntoView({ behavior: 'smooth' });
             }
         }
-
-        // Add click event to each category card
         categoryCards.forEach(card => {
             card.addEventListener('click', () => {
                 const selectedCategory = card.getAttribute('data-category');
                 filterVehicles(selectedCategory);
             });
         });
-
-        // Add Vehicle Modal
+    
         const addVehicleBtn = document.getElementById('openAddModal');
         const closeModalBtn = document.getElementById('closeModal');
         const addVehicleModal = document.getElementById('addVehicleModal');
@@ -2640,66 +2974,60 @@
                 addVehicleModal.style.display = 'none';
             }
         });
-        addVehicleForm.addEventListener('submit', (e) => {
+        
+        addVehicleForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = addVehicleForm.name.value;
+            const name = addVehicleForm.name.value.trim();
             const category = addVehicleForm.category.value;
-            const price = addVehicleForm.price.value;
-            const vmax = addVehicleForm.vmax.value;
-            const acceleration = addVehicleForm.acceleration.value;
-            const imageUrl = addVehicleForm.imageUrl.value;
-
-            const newVehicleCard = document.createElement('div');
-            newVehicleCard.className = 'vehicle-card glitch-hover';
-            newVehicleCard.setAttribute('data-category', category);
-            newVehicleCard.setAttribute('data-name', name);
-            newVehicleCard.setAttribute('data-price', price);
-            newVehicleCard.setAttribute('data-vmax', vmax);
-            newVehicleCard.setAttribute('data-accel', acceleration);
-            newVehicleCard.setAttribute('data-image', imageUrl);
-            newVehicleCard.innerHTML = `
-                <div class="vehicle-image-container">
-                    <img src="${imageUrl}" alt="${name}" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="${name}">${name}</h3>
-                    <div class="vehicle-price">€${parseInt(price).toLocaleString()}</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">${vmax}</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">${acceleration}S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            `;
-            vehiclesGrid.appendChild(newVehicleCard);
-            const newButtons = newVehicleCard.querySelectorAll('.action-btn');
-            newButtons.forEach(btn => {
-                if (btn.classList.contains('btn-buy')) {
-                    btn.addEventListener('click', function() {
-                        alert(`✅ VÉHICULE "${name}" AJOUTÉ À VOTRE GARAGE!`);
-                    });
-                }
-            });
-            newVehicleCard.addEventListener('mouseenter', () => {
-                newVehicleCard.style.animation = 'none';
-                setTimeout(() => {
-                    newVehicleCard.style.animation = 'glitch-hover 0.3s';
-                }, 10);
-            });
-            addVehicleModal.style.display = 'none';
-            addVehicleForm.reset();
-            updateCategoryCount(category);
-            showSuccessMessage('VÉHICULE AJOUTÉ AVEC SUCCÈS!');
+            const price = parseInt(addVehicleForm.price.value);
+            const vmax = parseInt(addVehicleForm.vmax.value);
+            const acceleration = parseFloat(addVehicleForm.acceleration.value);
+            const imageUrl = addVehicleForm.imageUrl.value.trim();
+        
+            if (!name || !category || !price || !vmax || !acceleration || !imageUrl) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+        
+            try {
+                // Récupérer le dernier ID pour incrémenter
+                const { data: last, error: err } = await supabaseClient
+                    .from('vehicule')
+                    .select('id')
+                    .order('id', { ascending: false })
+                    .limit(1);
+        
+                const newId = last && last.length ? last[0].id + 1 : 1;
+        
+                const newVehicle = {
+                    id: newId,
+                    categorie: category,
+                    nom: name,
+                    prix: price,
+                    vmax: vmax,
+                    vitesse: acceleration,
+                    details: '', // tu peux ajouter un champ dans le formulaire si besoin
+                    lien: imageUrl
+                };
+        
+                const { error: insertError } = await supabaseClient
+                    .from('vehicule')
+                    .insert([newVehicle]);
+        
+                if (insertError) throw insertError;
+        
+                // Recharger la liste
+                await loadVehiclesFromDB();
+                addVehicleModal.style.display = 'none';
+                addVehicleForm.reset();
+                showSuccessMessage('VÉHICULE AJOUTÉ AVEC SUCCÈS !');
+        
+            } catch (err) {
+                console.error("Erreur lors de l'ajout du véhicule:", err);
+                alert("Erreur lors de l'enregistrement du véhicule.");
+            }
         });
+        
         function updateCategoryCount(category) {
             const categoryCard = document.querySelector(`.category-card[data-category="${category}"]`);
             if (categoryCard) {
@@ -2738,8 +3066,7 @@
                 successDiv.remove();
             }, 3000);
         }
-
-        // Vehicle Details Modal
+    
         const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
         const closeDetailsModal = document.getElementById('closeDetailsModal');
         const detailsVehicleName = document.getElementById('detailsVehicleName');
@@ -2760,7 +3087,7 @@
             detailsVehicleName.textContent = name;
             detailsVehicleImage.src = image;
             detailsVehicleImage.alt = name;
-            detailsPrice.textContent = `€${parseInt(price).toLocaleString()}`;
+            detailsPrice.textContent = `${parseInt(price).toLocaleString()}€`;
             detailsVmax.textContent = `${vmax} KM/H`;
             detailsAccel.textContent = `${accel}S`;
             const categoryCard = document.querySelector(`.category-card[data-category="${category}"]`);
@@ -2775,6 +3102,7 @@
                 vehicleDetailsModal.style.display = 'none';
             }
         });
+    
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -2788,6 +3116,7 @@
                 }
             });
         });
+    
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
@@ -2798,13 +3127,12 @@
                 header.style.boxShadow = 'none';
             }
         });
-        // Handle window resize for canvas
+    
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-
-        // --- Panier ---
+    
         const cartIcon = document.getElementById('cartIcon');
         const cartModal = document.getElementById('cartModal');
         const closeCartModal = document.getElementById('closeCartModal');
@@ -2813,116 +3141,94 @@
         const clearCartBtn = document.getElementById('clearCartBtn');
         const cartBadge = document.getElementById('cartBadge');
         const cartEmptyMessage = document.getElementById('cartEmptyMessage');
-
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
         function updateCartBadge() {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartBadge.textContent = totalItems;
         }
-
         function updateCartDisplay() {
             cartItems.innerHTML = '';
             let total = 0;
-
             if (cart.length === 0) {
                 cartItems.appendChild(cartEmptyMessage);
                 cartEmptyMessage.style.display = 'block';
-                cartTotal.textContent = 'Total: €0';
+                cartTotal.textContent = 'Total: 0€';
                 updateCartBadge();
                 return;
             } else {
                 cartEmptyMessage.style.display = 'none';
             }
-
             cart.forEach((item, index) => {
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
-
                 const cartItemElement = document.createElement('div');
                 cartItemElement.className = 'cart-item';
                 cartItemElement.innerHTML = `
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">€${item.price.toLocaleString()}</div>
+                        <div class="cart-item-price">${item.price.toLocaleString()}€</div>
                         <div class="cart-item-quantity">Quantité: ${item.quantity}</div>
                     </div>
                     <button class="cart-item-remove" onclick="removeFromCart(${index})">Supprimer</button>
                 `;
                 cartItems.appendChild(cartItemElement);
             });
-
-            cartTotal.textContent = `Total: €${total.toLocaleString()}`;
+            cartTotal.textContent = `Total: ${total.toLocaleString()}€`;
             updateCartBadge();
         }
-
         function addToCart(button) {
             const vehicleCard = button.closest('.vehicle-card');
             const name = vehicleCard.getAttribute('data-name');
             const price = parseInt(vehicleCard.getAttribute('data-price'));
-
             const existingItemIndex = cart.findIndex(item => item.name === name);
             if (existingItemIndex > -1) {
                 cart[existingItemIndex].quantity += 1;
             } else {
                 cart.push({ name: name, price: price, quantity: 1 });
             }
-
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
             showSuccessMessage('VÉHICULE AJOUTÉ AU PANIER!');
         }
-
         function addToCartFromDetails() {
             const name = detailsVehicleName.textContent;
             const price = parseInt(detailsPrice.textContent.replace('€', '').replace(/\s/g, ''));
-
             const existingItemIndex = cart.findIndex(item => item.name === name);
             if (existingItemIndex > -1) {
                 cart[existingItemIndex].quantity += 1;
             } else {
                 cart.push({ name: name, price: price, quantity: 1 });
             }
-
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
             showSuccessMessage('VÉHICULE AJOUTÉ AU PANIER!');
             vehicleDetailsModal.style.display = 'none';
         }
-
         function removeFromCart(index) {
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
         }
-
         function clearCart() {
             cart = [];
             localStorage.removeItem('cart');
             updateCartDisplay();
         }
-
         cartIcon.addEventListener('click', () => {
             updateCartDisplay();
             cartModal.style.display = 'block';
         });
-
         closeCartModal.addEventListener('click', () => {
             cartModal.style.display = 'none';
         });
-
         window.addEventListener('click', (e) => {
             if (e.target === cartModal) {
                 cartModal.style.display = 'none';
             }
         });
-
         clearCartBtn.addEventListener('click', clearCart);
-
-        // Initialiser le badge du panier au chargement
         updateCartBadge();
-
-        // --- Nouvelle fonctionnalité Admin et Service ---
+    
         const adminLoginLink = document.getElementById('adminLoginLink');
         const loginModal = document.getElementById('loginModal');
         const closeLoginModal = document.getElementById('closeLoginModal');
@@ -2930,6 +3236,7 @@
         const servicePage = document.getElementById('servicePage');
         const closeServiceModal = document.getElementById('closeServiceModal');
         const serviceLink = document.getElementById('serviceLink');
+        const dossierLink = document.getElementById('dossierLink');
         const startServiceBtn = document.getElementById('startServiceBtn');
         const stopServiceBtn = document.getElementById('stopServiceBtn');
         const noWorkBtn = document.getElementById('noWorkBtn');
@@ -2939,16 +3246,14 @@
         const clientName = document.getElementById('clientName');
         const pauseServiceBtn = document.getElementById('pauseServiceBtn');
         const resumeServiceBtn = document.getElementById('resumeServiceBtn');
-
-        // Etat du service
+    
         let serviceInterval = null;
         let serviceStartTime = null;
         let serviceActive = false;
         let servicePaused = false;
         let servicePausedAt = null;
         let totalPausedTime = 0;
-
-        // Sauvegarde dans localStorage pour persistance
+    
         function saveServiceState() {
             localStorage.setItem('serviceState', JSON.stringify({
                 serviceActive,
@@ -2958,19 +3263,16 @@
                 totalPausedTime
             }));
         }
-
         function loadServiceState() {
             const state = JSON.parse(localStorage.getItem('serviceState'));
             if (state) {
-                serviceActive = state.serviceActive;
+                serviceActive = !!state.serviceActive;
                 serviceStartTime = state.serviceStartTime ? new Date(state.serviceStartTime) : null;
-                servicePaused = state.servicePaused;
+                servicePaused = !!state.servicePaused;
                 servicePausedAt = state.servicePausedAt ? new Date(state.servicePausedAt) : null;
                 totalPausedTime = state.totalPausedTime || 0;
             }
         }
-
-        // Timer affiché en continu même si l'interface est fermée
         function updateServiceTimerDisplay() {
             if (!serviceActive || !serviceStartTime) {
                 serviceTimer.textContent = '00:00:00';
@@ -2987,45 +3289,57 @@
             let seconds = Math.floor((elapsed / 1000) % 60);
             serviceTimer.textContent = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
         }
-
-        // On met à jour le timer toutes les secondes
         function startServiceInterval() {
             if (serviceInterval) clearInterval(serviceInterval);
             serviceInterval = setInterval(updateServiceTimerDisplay, 1000);
         }
-
-        // Ouvrir la modale de connexion
+    
         adminLoginLink.addEventListener('click', (e) => {
             e.preventDefault();
             loginModal.style.display = 'block';
         });
-
-        // Fermer la modale de connexion
         closeLoginModal.addEventListener('click', () => {
             loginModal.style.display = 'none';
         });
-
-        // Soumettre le formulaire de connexion
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            loginModal.style.display = 'none';
-            loginForm.reset();
-            serviceLink.style.display = 'block';
-            showSuccessMessage('Connexion réussie ! Accès au panel service autorisé.');
-        });
-
-        // Fermer la modale de connexion en cliquant en dehors
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+            if (!username || !password) {
+                alert("Veuillez entrer un nom d'utilisateur et un mot de passe.");
+                return;
+            }
+            try {
+                const { data, error } = await supabaseClient
+                    .from('compte')
+                    .select('*')
+                    .eq('username', username)
+                    .eq('password', password)
+                    .single();
+                if (error || !data) {
+                    alert("Nom d'utilisateur ou mot de passe incorrect.");
+                    return;
+                }
+                authenticatedUser = username;
+                userRole = data.role;
                 loginModal.style.display = 'none';
-            }
-            if (e.target === servicePage) {
-                servicePage.style.display = 'none';
-                // NE PAS arrêter le timer ni le service si on ferme la page !
+                loginForm.reset();
+                serviceLink.style.display = 'block';
+                if (userRole === 'PDG') {
+                    dossierLink.style.display = 'block';
+                }
+                showSuccessMessage('Connexion réussie !');
+            } catch (err) {
+                alert("Erreur lors de la connexion.");
             }
         });
-
-        // Afficher la page de service
+    
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) loginModal.style.display = 'none';
+            if (e.target === servicePage) servicePage.style.display = 'none';
+            if (e.target === dossierPage) dossierPage.style.display = 'none';
+        });
+    
         serviceLink.addEventListener('click', (e) => {
             e.preventDefault();
             if (serviceLink.style.display !== 'none') {
@@ -3034,13 +3348,10 @@
                 updateServiceTimerDisplay();
             }
         });
-
-        // Fermer la page de service
         closeServiceModal.addEventListener('click', () => {
             servicePage.style.display = 'none';
         });
-
-        // -- Boutons et logique du service --
+    
         function updateServiceButtons() {
             if (!serviceActive) {
                 startServiceBtn.style.display = 'block';
@@ -3059,9 +3370,13 @@
                 resumeServiceBtn.style.display = 'none';
             }
         }
-
-        function startService() {
+    
+        async function startService() {
             if (serviceActive) return;
+            if (!authenticatedUser) {
+                alert("Vous devez être connecté.");
+                return;
+            }
             serviceActive = true;
             serviceStartTime = new Date();
             servicePaused = false;
@@ -3071,10 +3386,75 @@
             updateServiceTimerDisplay();
             startServiceInterval();
             saveServiceState();
+            try {
+                const { data: lastEntry, error: fetchError } = await supabaseClient
+                    .from('service')
+                    .select('id_service')
+                    .order('id_service', { ascending: false })
+                    .limit(1);
+                let newId = 1;
+                if (lastEntry && lastEntry.length > 0) {
+                    newId = lastEntry[0].id_service + 1;
+                }
+                const startDate = new Date().toISOString();
+                const newServiceEntry = {
+                    id_service: newId,
+                    nom: authenticatedUser,
+                    date: startDate,
+                    temp: 0
+                };
+                const { error: insertError } = await supabaseClient
+                    .from('service')
+                    .insert([newServiceEntry]);
+                if (insertError) {
+                    alert("Erreur lors de l'enregistrement du service.");
+                    stopService();
+                } else {
+                    localStorage.setItem('currentServiceId', newId);
+                }
+            } catch (err) {
+                alert("Erreur inattendue.");
+                stopService();
+            }
         }
-
+    
         function stopService() {
             if (!serviceActive) return;
+            const currentServiceId = localStorage.getItem('currentServiceId');
+            if (!currentServiceId) {
+                serviceActive = false;
+                servicePaused = false;
+                servicePausedAt = null;
+                totalPausedTime = 0;
+                serviceStartTime = null;
+                updateServiceButtons();
+                updateServiceTimerDisplay();
+                clearInterval(serviceInterval);
+                saveServiceState();
+                return;
+            }
+            let totalTimeMs;
+            if (servicePaused && servicePausedAt) {
+                totalTimeMs = servicePausedAt.getTime() - serviceStartTime.getTime() - totalPausedTime;
+            } else {
+                totalTimeMs = Date.now() - serviceStartTime.getTime() - totalPausedTime;
+            }
+            const totalSeconds = Math.floor(totalTimeMs / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            const formattedTemp = `${String(hours).padStart(2, '0')}h${String(minutes).padStart(2, '0')}min${String(seconds).padStart(2, '0')}s`;
+            supabaseClient
+                .from('service')
+                .update({ date: new Date().toISOString(), temp: formattedTemp })
+                .eq('id_service', parseInt(currentServiceId))
+                .then(({ error }) => {
+                    if (error) {
+                        alert("Erreur lors de l'enregistrement de la fin.");
+                    } else {
+                        localStorage.removeItem('currentServiceId');
+                    }
+                });
             serviceActive = false;
             servicePaused = false;
             servicePausedAt = null;
@@ -3085,7 +3465,7 @@
             clearInterval(serviceInterval);
             saveServiceState();
         }
-
+    
         function pauseService() {
             if (!serviceActive || servicePaused) return;
             servicePaused = true;
@@ -3095,10 +3475,9 @@
             clearInterval(serviceInterval);
             saveServiceState();
         }
-
+    
         function resumeService() {
             if (!serviceActive || !servicePaused) return;
-            // Ajoute le temps de pause total
             totalPausedTime += (new Date() - servicePausedAt);
             servicePaused = false;
             servicePausedAt = null;
@@ -3107,38 +3486,519 @@
             startServiceInterval();
             saveServiceState();
         }
-
-        // PAS DE TRAVAIL
-        function noWork() {
-            if (serviceActive) {
-                stopService();
-            }
-            alert('Statut "Absent pour aujourd\'hui" activé.');
+    
+        async function noWork() {
+            if (serviceActive) await stopService();
+            localStorage.removeItem('currentServiceId');
+            alert('Statut "Absent" activé.');
         }
-
-        // ENREGISTRER UNE VENTE
-        function recordSale() {
+    
+        async function recordSale() {
             const vehicle = vehicleSearch.value.trim();
             const client = clientName.value.trim();
             if (!vehicle || !client) {
-                alert('Veuillez entrer un véhicule et un nom de client.');
+                alert('Veuillez entrer un véhicule et un client.');
                 return;
             }
-            alert(`Vente enregistrée : ${vehicle} vendu à ${client}.`);
-            vehicleSearch.value = '';
-            clientName.value = '';
+            if (!authenticatedUser) {
+                alert("Vous devez être connecté.");
+                return;
+            }
+            try {
+                const { data: lastSale, error: fetchError } = await supabaseClient
+                    .from('vente')
+                    .select('id_vente')
+                    .order('id_vente', { ascending: false })
+                    .limit(1);
+                let newSaleId = 1;
+                if (lastSale && lastSale.length > 0) {
+                    newSaleId = lastSale[0].id_vente + 1;
+                }
+                const now = new Date();
+                const formattedDate = now.toLocaleDateString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                }) + ' ' + now.toLocaleTimeString('fr-FR', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                const newSaleEntry = {
+                    id_vente: newSaleId,
+                    client: client,
+                    vehicule: vehicle,
+                    date: formattedDate,
+                    username: authenticatedUser
+                };
+                const { error: saleError } = await supabaseClient
+                    .from('vente')
+                    .insert([newSaleEntry]);
+                if (saleError) {
+                    alert("Erreur lors de l'enregistrement de la vente.");
+                    return;
+                }
+                const { data: lastClient, error: fetchClientError } = await supabaseClient
+                    .from('client')
+                    .select('id_client')
+                    .order('id_client', { ascending: false })
+                    .limit(1);
+                let newClientId = 1;
+                if (lastClient && lastClient.length > 0) {
+                    newClientId = lastClient[0].id_client + 1;
+                }
+                const newClientEntry = {
+                    id_client: newClientId,
+                    client: client,
+                    vehicule: vehicle,
+                    date: formattedDate,
+                    vendeur: authenticatedUser
+                };
+                const { error: clientError } = await supabaseClient
+                    .from('client')
+                    .insert([newClientEntry]);
+                if (clientError) {
+                    alert("Erreur lors de l'enregistrement du client.");
+                }
+                vehicleSearch.value = '';
+                clientName.value = '';
+                alert(`Vente enregistrée : ${vehicle} vendu à ${client}.`);
+            } catch (err) {
+                alert("Erreur inattendue.");
+            }
+        }
+    
+        // --- DOSSIER EMPLOYÉS ---
+        const dossierPage = document.getElementById('dossierPage');
+        const closeDossierModal = document.getElementById('closeDossierModal');
+        const vendeursList = document.getElementById('vendeursList');
+        const vendeursGrid = document.getElementById('vendeursGrid');
+        const summarySection = document.getElementById('summarySection');
+        const summaryTitle = document.getElementById('summaryTitle');
+        const totalHeures = document.getElementById('totalHeures');
+        const totalVentes = document.getElementById('totalVentes');
+        const salesDetails = document.getElementById('salesDetails');
+        const salaryDisplay = document.getElementById('salaryDisplay');
+    
+        // Sélecteur de semaine
+        const weekSelectorContainer = document.getElementById('weekSelectorContainer');
+        const weekSelector = document.getElementById('weekSelector');
+    
+        async function populateWeekSelector() {
+            const weeks = await getWeeksFromData();
+            weekSelector.innerHTML = '';
+            weeks.forEach(w => {
+                const opt = document.createElement('option');
+                opt.value = w.key;
+                opt.textContent = w.label;
+                weekSelector.appendChild(opt);
+            });
+        }
+    
+        weekSelector.addEventListener('change', () => {
+            const selectedRoleBtn = document.querySelector('.role-btn.active');
+            const selectedVendeurBtn = document.querySelector('.vendeur-btn.active');
+            const weekKey = weekSelector.value;
+    
+            if (selectedRoleBtn) {
+                const role = selectedRoleBtn.getAttribute('data-role');
+                loadRoleSummary(role, weekKey);
+            } else if (selectedVendeurBtn) {
+                const username = selectedVendeurBtn.textContent;
+                loadEmployeeSummary(username, weekKey);
+            }
+        });
+    
+        dossierLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (dossierLink.style.display !== 'none') {
+                dossierPage.style.display = 'block';
+                vendeursList.style.display = 'none';
+                summarySection.style.display = 'none';
+            }
+        });
+        closeDossierModal.addEventListener('click', () => {
+            dossierPage.style.display = 'none';
+        });
+    
+        document.querySelectorAll('.role-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                document.querySelectorAll('.role-btn, .vendeur-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+    
+                const role = btn.getAttribute('data-role');
+    
+                if (userRole === 'PDG') {
+                    weekSelectorContainer.style.display = 'block';
+                    populateWeekSelector();
+                } else {
+                    weekSelectorContainer.style.display = 'none';
+                }
+    
+                if (role === 'Vendeur') {
+                    try {
+                        const { data, error } = await supabaseClient
+                            .from('compte')
+                            .select('username')
+                            .eq('role', 'Vendeur');
+                        if (error) throw error;
+                        vendeursGrid.innerHTML = '';
+                        data.forEach(user => {
+                            const btnEl = document.createElement('button');
+                            btnEl.className = 'vendeur-btn glitch-hover';
+                            btnEl.textContent = user.username;
+                            btnEl.onclick = () => {
+                                document.querySelectorAll('.vendeur-btn').forEach(b => b.classList.remove('active'));
+                                btnEl.classList.add('active');
+                                loadEmployeeSummary(user.username, weekSelector.value || null);
+                            };
+                            vendeursGrid.appendChild(btnEl);
+                        });
+                        vendeursList.style.display = 'block';
+                        summarySection.style.display = 'none';
+                    } catch (err) {
+                        alert("Erreur lors du chargement des vendeurs.");
+                    }
+                } else {
+                    loadRoleSummary(role, weekSelector.value || null);
+                }
+            });
+        });
+    
+        async function loadEmployeeSummary(username, weekKey = null) {
+            try {
+                const { data: user, error: userError } = await supabaseClient
+                    .from('compte')
+                    .select('role')
+                    .eq('username', username)
+                    .single();
+                if (userError) throw userError;
+                const role = user.role;
+    
+                const targetDate = weekKey ? new Date() : new Date();
+                if (weekKey) {
+                    const [year, weekNum] = weekKey.split('-').map(Number);
+                    const jan4 = new Date(year, 0, 4);
+                    const mondayOfYear = new Date(jan4);
+                    mondayOfYear.setDate(jan4.getDate() - (jan4.getDay() || 7) + 1);
+                    const targetMonday = new Date(mondayOfYear);
+                    targetMonday.setDate(mondayOfYear.getDate() + (weekNum - 1) * 7);
+                    targetDate.setTime(targetMonday.getTime());
+                }
+    
+                const { monday, sunday } = getWeekBounds(targetDate);
+    
+                const { data: services, error: serviceError } = await supabaseClient
+                    .from('service')
+                    .select('temp, date')
+                    .eq('nom', username)
+                    .gte('date', monday.toISOString())
+                    .lte('date', sunday.toISOString());
+                if (serviceError) throw serviceError;
+    
+                const { data: allVentes, error: venteError } = await supabaseClient
+                    .from('vente')
+                    .select('id_vente, vehicule, date')
+                    .eq('username', username);
+                if (venteError) throw venteError;
+    
+                const ventes = allVentes.filter(v => {
+                    const dateStr = v.date.split(' ')[0];
+                    const [day, month, year] = dateStr.split('/');
+                    const saleDate = new Date(`${year}-${month}-${day}`);
+                    return saleDate >= monday && saleDate <= sunday;
+                });
+    
+                let totalSec = 0;
+                services.forEach(s => {
+                    if (s.temp) {
+                        const parts = s.temp.match(/(\d+)h(\d+)min(\d+)s/);
+                        if (parts) {
+                            totalSec += parseInt(parts[1]) * 3600 + parseInt(parts[2]) * 60 + parseInt(parts[3]);
+                        }
+                    }
+                });
+    
+                const h = Math.floor(totalSec / 3600);
+                const m = Math.floor((totalSec % 3600) / 60);
+                const s = totalSec % 60;
+                totalHeures.textContent = `${String(h).padStart(2, '0')}h${String(m).padStart(2, '0')}min${String(s).padStart(2, '0')}s`;
+                const nbVentes = ventes.length;
+                totalVentes.textContent = nbVentes;
+    
+                salesDetails.innerHTML = '';
+                ventes.forEach(v => {
+                    const div = document.createElement('div');
+                    div.className = 'sale-item';
+                    div.textContent = `${v.date} - ${v.vehicule}`;
+                    salesDetails.appendChild(div);
+                });
+    
+                summaryTitle.textContent = `RÉCAPITULATIF ${username} (${monday.toLocaleDateString('fr-FR')} au ${sunday.toLocaleDateString('fr-FR')})`;
+                summarySection.style.display = 'block';
+    
+                const tauxHoraire = role === 'PDG' ? 1500 : (role === 'Co-PDG' ? 1200 : 1000);
+                const heuresTotales = totalSec / 3600;
+                const salaireHoraire = heuresTotales * tauxHoraire;
+                const primeVentes = nbVentes * 300;
+                const salaireTotal = Math.round(salaireHoraire + primeVentes);
+                salaryDisplay.textContent = `${salaireTotal.toLocaleString()}€`;
+            } catch (err) {
+                console.error("Erreur dans loadEmployeeSummary:", err);
+                alert("Erreur lors du chargement des données.");
+            }
+        }
+    
+        async function loadRoleSummary(role, weekKey = null) {
+            try {
+                const { data: users, error: userError } = await supabaseClient
+                    .from('compte')
+                    .select('username')
+                    .eq('role', role);
+                if (userError) throw userError;
+                const usernames = users.map(u => u.username);
+    
+                const targetDate = weekKey ? new Date() : new Date();
+                if (weekKey) {
+                    const [year, weekNum] = weekKey.split('-').map(Number);
+                    const jan4 = new Date(year, 0, 4);
+                    const mondayOfYear = new Date(jan4);
+                    mondayOfYear.setDate(jan4.getDate() - (jan4.getDay() || 7) + 1);
+                    const targetMonday = new Date(mondayOfYear);
+                    targetMonday.setDate(mondayOfYear.getDate() + (weekNum - 1) * 7);
+                    targetDate.setTime(targetMonday.getTime());
+                }
+    
+                const { monday, sunday } = getWeekBounds(targetDate);
+    
+                const { data: services, error: serviceError } = await supabaseClient
+                    .from('service')
+                    .select('temp, date')
+                    .in('nom', usernames)
+                    .gte('date', monday.toISOString())
+                    .lte('date', sunday.toISOString());
+                if (serviceError) throw serviceError;
+    
+                const { data: allVentes, error: venteError } = await supabaseClient
+                    .from('vente')
+                    .select('id_vente, vehicule, date')
+                    .in('username', usernames);
+                if (venteError) throw venteError;
+    
+                const ventes = allVentes.filter(v => {
+                    const dateStr = v.date.split(' ')[0];
+                    const [day, month, year] = dateStr.split('/');
+                    const saleDate = new Date(`${year}-${month}-${day}`);
+                    return saleDate >= monday && saleDate <= sunday;
+                });
+    
+                let totalSec = 0;
+                services.forEach(s => {
+                    if (s.temp) {
+                        const parts = s.temp.match(/(\d+)h(\d+)min(\d+)s/);
+                        if (parts) {
+                            totalSec += parseInt(parts[1]) * 3600 + parseInt(parts[2]) * 60 + parseInt(parts[3]);
+                        }
+                    }
+                });
+    
+                const h = Math.floor(totalSec / 3600);
+                const m = Math.floor((totalSec % 3600) / 60);
+                const s = totalSec % 60;
+                totalHeures.textContent = `${String(h).padStart(2, '0')}h${String(m).padStart(2, '0')}min${String(s).padStart(2, '0')}s`;
+                const nbVentes = ventes.length;
+                totalVentes.textContent = nbVentes;
+    
+                salesDetails.innerHTML = '';
+                ventes.forEach(v => {
+                    const div = document.createElement('div');
+                    div.className = 'sale-item';
+                    div.textContent = `${v.date} - ${v.vehicule}`;
+                    salesDetails.appendChild(div);
+                });
+    
+                summaryTitle.textContent = `RÉCAPITULATIF ${role.toUpperCase()} (${monday.toLocaleDateString('fr-FR')} au ${sunday.toLocaleDateString('fr-FR')})`;
+                summarySection.style.display = 'block';
+                vendeursList.style.display = 'none';
+    
+                const tauxHoraire = role === 'PDG' ? 1500 : (role === 'Co-PDG' ? 1200 : 1000);
+                const heuresTotales = totalSec / 3600;
+                const salaireHoraire = heuresTotales * tauxHoraire;
+                const primeVentes = nbVentes * 300;
+                const salaireTotal = Math.round(salaireHoraire + primeVentes);
+                salaryDisplay.textContent = `${salaireTotal.toLocaleString()}€`;
+            } catch (err) {
+                console.error("Erreur dans loadRoleSummary:", err);
+                alert("Erreur lors du chargement des données.");
+            }
         }
 
-        // Attacher les événements
+
+        // Charger les véhicules depuis la table 'vehicule' dans Supabase
+        async function loadVehiclesFromDB() {
+            try {
+                const { data: vehicles, error } = await supabaseClient
+                    .from('vehicule')
+                    .select('*')
+                    .order('id', { ascending: true });
+        
+                if (error) throw error;
+        
+                // Effacer le grid existant
+                vehiclesGrid.innerHTML = '';
+        
+                // Compteur par catégorie (initialisé à 0)
+                const categoryCounts = {
+                    'all': 0,
+                    'berline': 0,
+                    'compact': 0,
+                    'suv': 0,
+                    'sportive': 0,
+                    'deux-roues': 0,
+                    'hypercar': 0,
+                    'tout-terrain': 0,
+                    'special': 0
+                };
+        
+                // Liste des catégories valides
+                const validCategories = Object.keys(categoryCounts);
+        
+                vehicles.forEach(v => {
+                    // Normaliser la catégorie
+                    let rawCat = (v.categorie || '').toLowerCase().trim();
+                    // Mapping manuel pour gérer les variantes
+                    const categoryMap = {
+                        'deux roues': 'deux-roues',
+                        'deux-roues': 'deux-roues',
+                        'tout terrain': 'tout-terrain',
+                        'tout-terrains': 'tout-terrain',
+                        'berline': 'berline',
+                        'compact': 'compact',
+                        'suv': 'suv',
+                        'sportive': 'sportive',
+                        'hypercar': 'hypercar',
+                        'special': 'special'
+                    };
+        
+                    // Utiliser la catégorie telle quelle, en minuscules, et valider
+                    let safeCat = (v.categorie || '').toLowerCase().trim();
+                    if (!validCategories.includes(safeCat)) {
+                        safeCat = 'special';
+                    }
+        
+                    // Incrémenter les compteurs
+                    categoryCounts['all']++;
+                    categoryCounts[safeCat] = (categoryCounts[safeCat] || 0) + 1;
+        
+                    // URL de l'image (fallback si manquante)
+                    const imageUrl = v.lien || 'https://placehold.co/500x240/0a0a0a/ff0040?text=NO+IMAGE';
+        
+                    // Créer la carte
+                    const card = document.createElement('div');
+                    card.className = 'vehicle-card glitch-hover';
+                    card.setAttribute('data-category', safeCat);
+                    card.setAttribute('data-name', v.nom || 'Véhicule sans nom');
+                    card.setAttribute('data-price', v.prix || 0);
+                    card.setAttribute('data-vmax', v.vmax || 0);
+                    card.setAttribute('data-accel', v.speed || 0); // vitesse = 0-100 km/h
+                    card.setAttribute('data-image', imageUrl);
+        
+                    card.innerHTML = `
+                        <div class="vehicle-image-container">
+                            <img src="${imageUrl}" alt="${v.nom || 'Véhicule'}" class="vehicle-image">
+                        </div>
+                        <div class="vehicle-info">
+                            <h3 class="vehicle-name glitch" data-text="${(v.nom || '').toUpperCase()}">${v.nom || 'Véhicule'}</h3>
+                            <div class="vehicle-price">${parseInt(v.prix).toLocaleString()}€</div>
+                            <div class="vehicle-specs">
+                                <div class="spec-item">
+                                    <span class="spec-value">${v.vmax || 'N/A'}</span>
+                                    <span>VMAX (KM/H)</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-value">${v.speed ? v.speed + 'S' : 'N/A'}</span>
+                                    <span>0-100 KM/H</span>
+                                </div>
+                            </div>
+                            <div class="vehicle-actions">
+                                <button class="action-btn btn-buy glitch-hover">ACHETER</button>
+                                <button class="action-btn btn-details glitch-hover">DÉTAILS</button>
+                            </div>
+                        </div>
+                    `;
+        
+                    // Ajouter les écouteurs
+                    const buyBtn = card.querySelector('.btn-buy');
+                    const detailsBtn = card.querySelector('.btn-details');
+        
+                    buyBtn.addEventListener('click', function() {
+                        addToCart(this);
+                        alert(`✅ VÉHICULE "${v.nom}" AJOUTÉ À VOTRE GARAGE!`);
+                    });
+        
+                    detailsBtn.addEventListener('click', function() {
+                        showVehicleDetails(this);
+                    });
+        
+                    card.addEventListener('mouseenter', () => {
+                        card.style.animation = 'none';
+                        setTimeout(() => card.style.animation = 'glitch-hover 0.3s', 10);
+                    });
+        
+                    vehiclesGrid.appendChild(card);
+                });
+        
+                // Mettre à jour les compteurs dans l'UI
+                Object.keys(categoryCounts).forEach(cat => {
+                    const card = document.querySelector(`.category-card[data-category="${cat}"]`);
+                    if (card) {
+                        const countEl = card.querySelector('.category-count');
+                        if (countEl) {
+                            countEl.textContent = `${categoryCounts[cat]} VÉHICULES`;
+                        }
+                    }
+                });
+        
+            } catch (err) {
+                console.error("Erreur lors du chargement des véhicules depuis la base de données:", err);
+                alert("Impossible de charger les véhicules. Vérifiez votre connexion ou la structure de la table 'vehicule'.");
+            }
+        }
+    
+        // Charger les véhicules depuis la base au démarrage
+        document.addEventListener('DOMContentLoaded', () => {
+            loadVehiclesFromDB(); // ← Chargement dynamique
+
+            // Scroll animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+            
         startServiceBtn.addEventListener('click', startService);
         stopServiceBtn.addEventListener('click', stopService);
         pauseServiceBtn.addEventListener('click', pauseService);
         resumeServiceBtn.addEventListener('click', resumeService);
         noWorkBtn.addEventListener('click', noWork);
         recordSaleBtn.addEventListener('click', recordSale);
-
-        // Au chargement : restaurer l'état
+    
         loadServiceState();
+        if (serviceActive && !authenticatedUser) {
+            serviceActive = false;
+            servicePaused = false;
+            servicePausedAt = null;
+            totalPausedTime = 0;
+            serviceStartTime = null;
+            localStorage.removeItem('currentServiceId');
+            updateServiceButtons();
+            updateServiceTimerDisplay();
+        }
         if (serviceActive) {
             updateServiceButtons();
             updateServiceTimerDisplay();
@@ -3146,16 +4006,7 @@
                 startServiceInterval();
             }
         }
-
-        // En cas de fermeture du navigateur, sauvegarder l'état du service
         window.addEventListener('beforeunload', saveServiceState);
-
-        // Attacher les événements aux boutons de la page de service
-        startServiceBtn.addEventListener('click', startService);
-        stopServiceBtn.addEventListener('click', stopService);
-        noWorkBtn.addEventListener('click', noWork);
-        recordSaleBtn.addEventListener('click', recordSale);
-
     </script>
 </body>
 </html>
