@@ -1682,7 +1682,7 @@
     <div class="login-modal" id="loginModal">
         <div class="login-content">
             <div class="login-header">
-                <h3 class="login-title glitch" data-text="CONNEXION ADMIN">CONNEXION ADMIN</h3>
+                <h3 class="login-title glitch" data-text="CONNEXION">CONNEXION</h3>
                 <button class="close-modal" id="closeLoginModal">&times;</button>
             </div>
             <form id="loginForm">
@@ -1740,35 +1740,33 @@
                 </div>
             </div>
             <div class="summary-section" id="summarySection" style="display:none;">
-            <h4 class="summary-title glitch" id="summaryTitle">RÉCAPITULATIF</h4>
-        
-            <!-- Sélecteur de semaine (visible uniquement pour le PDG) -->
-            <div id="weekSelectorContainer" style="text-align: center; margin-bottom: 1.5rem; display: none;">
-                <label for="weekSelector" style="display: block; margin-bottom: 0.5rem; color: var(--neon-red); font-family: 'Orbitron', sans-serif;">SEMAINE :</label>
-                <select id="weekSelector" class="form-select" style="width: 220px; margin: 0 auto; display: block;"></select>
+                <h4 class="summary-title glitch" id="summaryTitle">RÉCAPITULATIF</h4>
+                <!-- Sélecteur de semaine (visible uniquement pour le PDG) -->
+                <div id="weekSelectorContainer" style="text-align: center; margin-bottom: 1.5rem; display: none;">
+                    <label for="weekSelector" style="display: block; margin-bottom: 0.5rem; color: var(--neon-red); font-family: 'Orbitron', sans-serif;">SEMAINE :</label>
+                    <select id="weekSelector" class="form-select" style="width: 220px; margin: 0 auto; display: block;"></select>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-box">
+                        <div class="summary-label">HEURES DE SERVICE</div>
+                        <div class="summary-value" id="totalHeures">00h00min00s</div>
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-label">VOITURES VENDUES</div>
+                        <div class="summary-value" id="totalVentes">0</div>
+                    </div>
+                    <div class="summary-box" style="grid-column: 1 / -1;">
+                        <div class="summary-label">SALAIRE ESTIMÉ</div>
+                        <div class="summary-value" id="salaryDisplay" style="font-size: 1.8rem; color: var(--neon-red); font-family: 'Orbitron', sans-serif;"></div>
+                    </div>
+                </div>
+                <div class="sales-list">
+                    <h5 class="sales-title">DÉTAILS DES VENTES</h5>
+                    <div id="salesDetails">
+                        <!-- Liste des ventes -->
+                    </div>
+                </div>
             </div>
-        
-            <div class="summary-grid">
-                <div class="summary-box">
-                    <div class="summary-label">HEURES DE SERVICE</div>
-                    <div class="summary-value" id="totalHeures">00h00min00s</div>
-                </div>
-                <div class="summary-box">
-                    <div class="summary-label">VOITURES VENDUES</div>
-                    <div class="summary-value" id="totalVentes">0</div>
-                </div>
-                <div class="summary-box" style="grid-column: 1 / -1;">
-                    <div class="summary-label">SALAIRE ESTIMÉ</div>
-                    <div class="summary-value" id="salaryDisplay" style="font-size: 1.8rem; color: var(--neon-red); font-family: 'Orbitron', sans-serif;"></div>
-                </div>
-            </div>
-            <div class="sales-list">
-                <h5 class="sales-title">DÉTAILS DES VENTES</h5>
-                <div id="salesDetails">
-                    <!-- Liste des ventes -->
-                </div>
-            </div>
-        </div>
         </div>
     </div>
     <!-- Header -->
@@ -1789,7 +1787,7 @@
                     <li><a href="#categories" class="nav-link glitch-hover">CATÉGORIES</a></li>
                     <li><a href="#vehicles" class="nav-link glitch-hover">VÉHICULES</a></li>
                     <li><a href="#" class="nav-link glitch-hover" id="serviceLink" style="display: none;">SERVICE</a></li>
-                    <li><a href="#" class="nav-link glitch-hover" id="dossierLink" style="display: none;">DOSSIER</a></li> <!-- Nouveau lien -->
+                    <li><a href="#" class="nav-link glitch-hover" id="dossierLink" style="display: none;">DOSSIER</a></li>
                 </ul>
             </nav>
         </div>
@@ -1813,10 +1811,9 @@
                     <div class="stat-label">SUPPORT</div>
                 </div>
             </div>
-            <button class="cta-button glitch-hover fade-in">ACCÉDER AU PANIER</button>
         </div>
     </section>
-    <!-- Categories Section - Hexagonal Grid Layout -->
+    <!-- Categories Section -->
     <section class="categories-section" id="categories">
         <div class="section-header">
             <h2 class="section-title glitch neon-text" data-text="CATÉGORIES">CATÉGORIES</h2>
@@ -1903,748 +1900,10 @@
             <button class="add-vehicle-btn glitch-hover" id="openAddModal">AJOUTER UN VÉHICULE</button>
         </div>
         <div class="vehicles-grid" id="vehiclesGrid">
-            <!-- Véhicules Deux-Roues -->
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Yamaha Aerox 155" data-price="9000" data-vmax="120" data-accel="6.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+Aerox+155">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+Aerox+155" alt="Yamaha Aerox 155" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="YAMAHA AEROX 155">YAMAHA AEROX 155</h3>
-                    <div class="vehicle-price">€9,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">120</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">6.0S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Harley Davidson Low Rider" data-price="24000" data-vmax="180" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Harley+Davidson+Low+Rider">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Harley+Davidson+Low+Rider" alt="Harley Davidson Low Rider" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="HARLEY DAVIDSON LOW RIDER">HARLEY DAVIDSON LOW RIDER</h3>
-                    <div class="vehicle-price">€24,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">180</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="MV Agusta Brutale 2019" data-price="48000" data-vmax="250" data-accel="3.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=MV+Agusta+Brutale+2019">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=MV+Agusta+Brutale+2019" alt="MV Agusta Brutale 2019" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MV AGUSTA BRUTALE 2019">MV AGUSTA BRUTALE 2019</h3>
-                    <div class="vehicle-price">€48,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">250</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.0S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="LP Chopper" data-price="36000" data-vmax="190" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=LP+Chopper">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=LP+Chopper" alt="LP Chopper" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="LP CHOPPER">LP CHOPPER</h3>
-                    <div class="vehicle-price">€36,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">190</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.8S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Kawasaki ZX6R" data-price="15600" data-vmax="240" data-accel="3.2" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+ZX6R">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+ZX6R" alt="Kawasaki ZX6R" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="KAWASAKI ZX6R">KAWASAKI ZX6R</h3>
-                    <div class="vehicle-price">€15,600</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">240</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.2S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Kawasaki Z8R" data-price="14400" data-vmax="230" data-accel="3.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Z8R">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Z8R" alt="Kawasaki Z8R" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="KAWASAKI Z8R">KAWASAKI Z8R</h3>
-                    <div class="vehicle-price">€14,400</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">230</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Kawasaki Ninja H2" data-price="48000" data-vmax="320" data-accel="2.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Ninja+H2">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Kawasaki+Ninja+H2" alt="Kawasaki Ninja H2" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="KAWASAKI NINJA H2">KAWASAKI NINJA H2</h3>
-                    <div class="vehicle-price">€48,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">320</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">2.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="BMW S1000RR" data-price="27000" data-vmax="290" data-accel="2.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+S1000RR">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+S1000RR" alt="BMW S1000RR" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="BMW S1000RR">BMW S1000RR</h3>
-                    <div class="vehicle-price">€27,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">290</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">2.8S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="deux-roue" data-name="Yamaha YZF-R6" data-price="36000" data-vmax="260" data-accel="3.2" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+YZF-R6">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Yamaha+YZF-R6" alt="Yamaha YZF-R6" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="YAMAHA YZF-R6">YAMAHA YZF-R6</h3>
-                    <div class="vehicle-price">€36,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">260</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.2S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Véhicules SUV -->
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes GL 63 2019" data-price="96000" data-vmax="250" data-accel="4.2" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GL+63+2019">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GL+63+2019" alt="Mercedes GL 63 2019" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MERCEDES GL 63 2019">MERCEDES GL 63 2019</h3>
-                    <div class="vehicle-price">€96,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">250</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.2S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes C32" data-price="30000" data-vmax="220" data-accel="5.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+C32">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+C32" alt="Mercedes C32" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MERCEDES C32">MERCEDES C32</h3>
-                    <div class="vehicle-price">€30,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">220</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">5.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="BMW X7" data-price="150000" data-vmax="250" data-accel="4.7" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+X7">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=BMW+X7" alt="BMW X7" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="BMW X7">BMW X7</h3>
-                    <div class="vehicle-price">€150,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">250</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.7S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes GLE 63 2023" data-price="144000" data-vmax="250" data-accel="4.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GLE+63+2023">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+GLE+63+2023" alt="Mercedes GLE 63 2023" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MERCEDES GLE 63 2023">MERCEDES GLE 63 2023</h3>
-                    <div class="vehicle-price">€144,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">250</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.0S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Maserati Levante Novitec" data-price="180000" data-vmax="290" data-accel="3.6" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Maserati+Levante+Novitec">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Maserati+Levante+Novitec" alt="Maserati Levante Novitec" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MASERATI LEVANTE NOVITEC">MASERATI LEVANTE NOVITEC</h3>
-                    <div class="vehicle-price">€180,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">290</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.6S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Rolls Royce Cullinan" data-price="125000" data-vmax="250" data-accel="4.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Rolls+Royce+Cullinan">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Rolls+Royce+Cullinan" alt="Rolls Royce Cullinan" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="ROLLS ROYCE CULLINAN">ROLLS ROYCE CULLINAN</h3>
-                    <div class="vehicle-price">€125,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">250</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.8S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Volvo XC90" data-price="144000" data-vmax="230" data-accel="5.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Volvo+XC90">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Volvo+XC90" alt="Volvo XC90" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="VOLVO XC90">VOLVO XC90</h3>
-                    <div class="vehicle-price">€144,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">230</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">5.0S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Top Car Inferno" data-price="102000" data-vmax="260" data-accel="3.9" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Top+Car+Inferno">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Top+Car+Inferno" alt="Top Car Inferno" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="TOP CAR INFERNO">TOP CAR INFERNO</h3>
-                    <div class="vehicle-price">€102,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">260</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.9S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Land Rover Velar" data-price="102000" data-vmax="250" data-accel="5.3" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Land+Rover+Velar">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Land+Rover+Velar" alt="Land Rover Velar" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="LAND ROVER VELAR">LAND ROVER VELAR</h3>
-                    <div class="vehicle-price">€102,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">250</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">5.3S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Alpina XB7 2020" data-price="174000" data-vmax="290" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Alpina+XB7+2020">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Alpina+XB7+2020" alt="Alpina XB7 2020" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="ALPINA XB7 2020">ALPINA XB7 2020</h3>
-                    <div class="vehicle-price">€174,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">290</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.8S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Audi RSQ8 2021" data-price="156000" data-vmax="300" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Audi+RSQ8+2021">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Audi+RSQ8+2021" alt="Audi RSQ8 2021" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="AUDI RSQ8 2021">AUDI RSQ8 2021</h3>
-                    <div class="vehicle-price">€156,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">300</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.8S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Lamborghini Urus 2018" data-price="360000" data-vmax="310" data-accel="3.6" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Lamborghini+Urus+2018">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Lamborghini+Urus+2018" alt="Lamborghini Urus 2018" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="LAMBORGHINI URUS 2018">LAMBORGHINI URUS 2018</h3>
-                    <div class="vehicle-price">€360,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">310</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.6S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Range Rover Vogue Autobiography" data-price="146400" data-vmax="240" data-accel="5.1" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Range+Rover+Vogue+Autobiography">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Range+Rover+Vogue+Autobiography" alt="Range Rover Vogue Autobiography" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="RANGE ROVER VOGUE AUTOBIOGRAPHY">RANGE ROVER VOGUE AUTOBIOGRAPHY</h3>
-                    <div class="vehicle-price">€146,400</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">240</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">5.1S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Bentley Bentayga" data-price="288000" data-vmax="300" data-accel="4.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Bentley+Bentayga">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Bentley+Bentayga" alt="Bentley Bentayga" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="BENTLEY BENTAYGA">BENTLEY BENTAYGA</h3>
-                    <div class="vehicle-price">€288,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">300</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.0S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Jaguar F-Pace Prior" data-price="180000" data-vmax="280" data-accel="4.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Jaguar+F-Pace+Prior">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Jaguar+F-Pace+Prior" alt="Jaguar F-Pace Prior" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="JAGUAR F-PACE PRIOR">JAGUAR F-PACE PRIOR</h3>
-                    <div class="vehicle-price">€180,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">280</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.0S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes G63 S" data-price="336000" data-vmax="240" data-accel="3.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+G63+S">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+G63+S" alt="Mercedes G63 S" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MERCEDES G63 S">MERCEDES G63 S</h3>
-                    <div class="vehicle-price">€336,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">240</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">3.8S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes Classe G600P" data-price="204000" data-vmax="220" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+Classe+G600P">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+Classe+G600P" alt="Mercedes Classe G600P" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MERCEDES CLASSE G600P">MERCEDES CLASSE G600P</h3>
-                    <div class="vehicle-price">€204,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">220</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="suv" data-name="Mercedes ML63 Brabus" data-price="24000" data-vmax="280" data-accel="4.8" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+ML63+Brabus">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+ML63+Brabus" alt="Mercedes ML63 Brabus" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MERCEDES ML63 BRABUS">MERCEDES ML63 BRABUS</h3>
-                    <div class="vehicle-price">€24,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">280</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.8S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Véhicules Tout-Terrain -->
-            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Volkswagen Amarok" data-price="84000" data-vmax="180" data-accel="6.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Volkswagen+Amarok">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Volkswagen+Amarok" alt="Volkswagen Amarok" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="VOLKSWAGEN AMAROK">VOLKSWAGEN AMAROK</h3>
-                    <div class="vehicle-price">€84,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">180</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">6.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Ford Ranger 2019" data-price="96000" data-vmax="170" data-accel="7.0" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Ford+Ranger+2019">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Ford+Ranger+2019" alt="Ford Ranger 2019" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="FORD RANGER 2019">FORD RANGER 2019</h3>
-                    <div class="vehicle-price">€96,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">170</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">7.0S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Dodge RAM Rebel TRX" data-price="108000" data-vmax="190" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Dodge+RAM+Rebel+TRX">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Dodge+RAM+Rebel+TRX" alt="Dodge RAM Rebel TRX" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="DODGE RAM REBEL TRX">DODGE RAM REBEL TRX</h3>
-                    <div class="vehicle-price">€108,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">190</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Mercedes AMG G63 6x6" data-price="900000" data-vmax="200" data-accel="4.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+AMG+G63+6x6">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Mercedes+AMG+G63+6x6" alt="Mercedes AMG G63 6x6" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="MERCEDES AMG G63 6X6">MERCEDES AMG G63 6X6</h3>
-                    <div class="vehicle-price">€900,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">200</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">4.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
-            <div class="vehicle-card glitch-hover" data-category="tout-terrain" data-name="Toyota Tundra 2019" data-price="102000" data-vmax="160" data-accel="7.5" data-image="https://placehold.co/500x240/0a0a0a/ff0040?text=Toyota+Tundra+2019">
-                <div class="vehicle-image-container">
-                    <img src="https://placehold.co/500x240/0a0a0a/ff0040?text=Toyota+Tundra+2019" alt="Toyota Tundra 2019" class="vehicle-image">
-                </div>
-                <div class="vehicle-info">
-                    <h3 class="vehicle-name glitch" data-text="TOYOTA TUNDRA 2019">TOYOTA TUNDRA 2019</h3>
-                    <div class="vehicle-price">€102,000</div>
-                    <div class="vehicle-specs">
-                        <div class="spec-item">
-                            <span class="spec-value">160</span>
-                            <span>VMAX (KM/H)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-value">7.5S</span>
-                            <span>0-100 KM/H</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="action-btn btn-buy glitch-hover" onclick="addToCart(this)">ACHETER</button>
-                        <button class="action-btn btn-details glitch-hover" onclick="showVehicleDetails(this)">DÉTAILS</button>
-                    </div>
-                </div>
-            </div>
+            <!-- Les véhicules seront chargés ici dynamiquement depuis Supabase -->
         </div>
     </section>
-    <!-- Add Vehicle Modal - Compact -->
+    <!-- Add Vehicle Modal -->
     <div class="modal" id="addVehicleModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -2690,7 +1949,7 @@
             </form>
         </div>
     </div>
-    <!-- Vehicle Details Modal - Compact -->
+    <!-- Vehicle Details Modal -->
     <div class="details-modal" id="vehicleDetailsModal">
         <div class="details-content">
             <div class="details-header">
@@ -2719,10 +1978,11 @@
                 </div>
             </div>
             <div class="details-actions">
-                <button class="action-btn btn-buy" id="detailsBuyBtn" onclick="addToCartFromDetails()">ACHETER</button>
+                <button class="action-btn btn-buy" id="detailsBuyBtn">ACHETER</button>
             </div>
         </div>
     </div>
+    <!-- Footer -->
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -2737,16 +1997,6 @@
                     <a href="#" class="social-link glitch-hover"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-link glitch-hover"><i class="fab fa-youtube"></i></a>
                 </div>
-            </div>
-            <div class="footer-column">
-                <h3>CATÉGORIES</h3>
-                <ul class="footer-links">
-                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> BERLINE</a></li>
-                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> COMPACT</a></li>
-                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> SUV</a></li>
-                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> SPORTIVE</a></li>
-                    <li><a href="#" class="glitch-hover"><i class="fas fa-chevron-right"></i> DEUX ROUES</a></li>
-                </ul>
             </div>
             <div class="footer-column">
                 <h3>LIENS UTILES</h3>
