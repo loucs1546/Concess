@@ -1897,7 +1897,6 @@
     <section class="vehicles-showcase" id="vehicles">
         <div class="vehicles-header">
             <h2 class="current-category glitch" data-text="TOUTES LES CATÉGORIES">TOUTES LES CATÉGORIES</h2>
-            <button class="add-vehicle-btn glitch-hover" id="openAddModal">AJOUTER UN VÉHICULE</button>
         </div>
         <div class="vehicles-grid" id="vehiclesGrid">
             <!-- Les véhicules seront chargés ici dynamiquement depuis Supabase -->
@@ -1963,14 +1962,6 @@
                 <div class="detail-item">
                     <div class="detail-label">PRIX</div>
                     <div class="detail-value" id="detailsPrice">€0</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">VITESSE MAX</div>
-                    <div class="detail-value" id="detailsVmax">0 KM/H</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">0-100 KM/H</div>
-                    <div class="detail-value" id="detailsAccel">0.0S</div>
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">CATÉGORIE</div>
@@ -2208,75 +2199,6 @@
                 filterVehicles(selectedCategory);
             });
         });
-    
-        const addVehicleBtn = document.getElementById('openAddModal');
-        const closeModalBtn = document.getElementById('closeModal');
-        const addVehicleModal = document.getElementById('addVehicleModal');
-        const addVehicleForm = document.getElementById('addVehicleForm');
-        addVehicleBtn.addEventListener('click', () => {
-            addVehicleModal.style.display = 'block';
-        });
-        closeModalBtn.addEventListener('click', () => {
-            addVehicleModal.style.display = 'none';
-        });
-        window.addEventListener('click', (e) => {
-            if (e.target === addVehicleModal) {
-                addVehicleModal.style.display = 'none';
-            }
-        });
-        
-        addVehicleForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = addVehicleForm.name.value.trim();
-            const category = addVehicleForm.category.value;
-            const price = parseInt(addVehicleForm.price.value);
-            const vmax = parseInt(addVehicleForm.vmax.value);
-            const acceleration = parseFloat(addVehicleForm.acceleration.value);
-            const imageUrl = addVehicleForm.imageUrl.value.trim();
-        
-            if (!name || !category || !price || !vmax || !acceleration || !imageUrl) {
-                alert("Veuillez remplir tous les champs.");
-                return;
-            }
-        
-            try {
-                // Récupérer le dernier ID pour incrémenter
-                const { data: last, error: err } = await supabaseClient
-                    .from('vehicule')
-                    .select('id')
-                    .order('id', { ascending: false })
-                    .limit(1);
-        
-                const newId = last && last.length ? last[0].id + 1 : 1;
-        
-                const newVehicle = {
-                    id: newId,
-                    categorie: category,
-                    nom: name,
-                    prix: price,
-                    vmax: vmax,
-                    vitesse: acceleration,
-                    details: '', // tu peux ajouter un champ dans le formulaire si besoin
-                    lien: imageUrl
-                };
-        
-                const { error: insertError } = await supabaseClient
-                    .from('vehicule')
-                    .insert([newVehicle]);
-        
-                if (insertError) throw insertError;
-        
-                // Recharger la liste
-                await loadVehiclesFromDB();
-                addVehicleModal.style.display = 'none';
-                addVehicleForm.reset();
-                showSuccessMessage('VÉHICULE AJOUTÉ AVEC SUCCÈS !');
-        
-            } catch (err) {
-                console.error("Erreur lors de l'ajout du véhicule:", err);
-                alert("Erreur lors de l'enregistrement du véhicule.");
-            }
-        });
         
         function updateCategoryCount(category) {
             const categoryCard = document.querySelector(`.category-card[data-category="${category}"]`);
@@ -2330,18 +2252,22 @@
             const vehicleCard = button.closest('.vehicle-card');
             const name = vehicleCard.getAttribute('data-name');
             const price = vehicleCard.getAttribute('data-price');
-            const vmax = vehicleCard.getAttribute('data-vmax');
-            const accel = vehicleCard.getAttribute('data-accel');
             const image = vehicleCard.getAttribute('data-image');
             const category = vehicleCard.getAttribute('data-category');
+
+            // Mettre à jour la modale
             detailsVehicleName.textContent = name;
             detailsVehicleImage.src = image;
             detailsVehicleImage.alt = name;
             detailsPrice.textContent = `${parseInt(price).toLocaleString()}€`;
-            detailsVmax.textContent = `${vmax} KM/H`;
-            detailsAccel.textContent = `${accel}S`;
+
+            // Catégorie lisible
             const categoryCard = document.querySelector(`.category-card[data-category="${category}"]`);
-            detailsCategory.textContent = categoryCard ? categoryCard.querySelector('.category-title').textContent : category.toUpperCase();
+            detailsCategory.textContent = categoryCard 
+                ? categoryCard.querySelector('.category-title').textContent 
+                : category.toUpperCase();
+
+            // ✅ Afficher la modale
             vehicleDetailsModal.style.display = 'block';
         }
         closeDetailsModal.addEventListener('click', () => {
@@ -3149,9 +3075,10 @@
                     card.setAttribute('data-name', v.nom || 'Véhicule sans nom');
                     card.setAttribute('data-price', v.prix || 0);
                     card.setAttribute('data-vmax', v.vmax || 0);
-                    card.setAttribute('data-accel', v.speed || 0); // vitesse = 0-100 km/h
+                    card.setAttribute('data-accel', v.speed || 0);
                     card.setAttribute('data-image', imageUrl);
-        
+
+                    // ✅ Supprime les specs si tu ne veux pas les afficher sur la page principale
                     card.innerHTML = `
                         <div class="vehicle-image-container">
                             <img src="${imageUrl}" alt="${v.nom || 'Véhicule'}" class="vehicle-image">
@@ -3159,35 +3086,27 @@
                         <div class="vehicle-info">
                             <h3 class="vehicle-name glitch" data-text="${(v.nom || '').toUpperCase()}">${v.nom || 'Véhicule'}</h3>
                             <div class="vehicle-price">${parseInt(v.prix).toLocaleString()}€</div>
-                            <div class="vehicle-specs">
-                                <div class="spec-item">
-                                    <span class="spec-value">${v.vmax || 'N/A'}</span>
-                                    <span>VMAX (KM/H)</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-value">${v.speed ? v.speed + 'S' : 'N/A'}</span>
-                                    <span>0-100 KM/H</span>
-                                </div>
-                            </div>
                             <div class="vehicle-actions">
                                 <button class="action-btn btn-buy glitch-hover">ACHETER</button>
                                 <button class="action-btn btn-details glitch-hover">DÉTAILS</button>
                             </div>
                         </div>
                     `;
-        
-                    // Ajouter les écouteurs
+
+                    // ✅ Attacher les écouteurs APRÈS avoir injecté le HTML
                     const buyBtn = card.querySelector('.btn-buy');
                     const detailsBtn = card.querySelector('.btn-details');
-        
-                    buyBtn.addEventListener('click', function() {
+
+                    buyBtn.addEventListener('click', function () {
                         addToCart(this);
                         alert(`✅ VÉHICULE "${v.nom}" AJOUTÉ À VOTRE GARAGE!`);
                     });
-        
-                    detailsBtn.addEventListener('click', function() {
-                        showVehicleDetails(this);
+
+                    detailsBtn.addEventListener('click', function () {
+                        showVehicleDetails(this); // ← cette fonction DOIT exister
                     });
+
+                    vehiclesGrid.appendChild(card);
         
                     card.addEventListener('mouseenter', () => {
                         card.style.animation = 'none';
