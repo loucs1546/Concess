@@ -2501,7 +2501,7 @@
                 loginModal.style.display = 'none';
                 loginForm.reset();
                 serviceLink.style.display = 'block';
-                if (userRole === 'PDG') {
+                if (userRole === 'PDG' || userRole === 'Co-PDG' || userRole === 'Admin') {
                     dossierLink.style.display = 'block';
                 }
                 showSuccessMessage('Connexion réussie !');
@@ -2802,8 +2802,8 @@
                 btn.classList.add('active');
     
                 const role = btn.getAttribute('data-role');
-    
-                if (userRole === 'PDG') {
+
+                if (userRole === 'PDG' || userRole === 'Co-PDG' || userRole === 'Admin') {
                     weekSelectorContainer.style.display = 'block';
                     populateWeekSelector();
                 } else {
